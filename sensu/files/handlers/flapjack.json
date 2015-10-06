@@ -1,0 +1,14 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{
+  "handlers": {
+    "flapjack": {
+      "host": "{{ handler.get('host', 'localhost') }}",
+      "port": {{ handler.get('port', '6379') }},
+      "db": "{{ handler.get('number', '0') }}",
+      "severities": [
+        "ok",
+        "critical"
+      ]
+    }
+  }
+}

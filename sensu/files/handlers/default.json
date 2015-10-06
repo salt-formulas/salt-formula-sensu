@@ -1,0 +1,17 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{
+  "handlers": {
+    "default": {
+      "type": "set",
+      "handlers": [
+        {% for set in handler.set %}"{{ set }}"{% if not loop.last %}, {% endif %}{% endfor %}
+      ],
+      "severities": [
+        "ok",
+        "critical",
+        "warning",
+        "unknown"
+      ]
+    }
+  }
+}

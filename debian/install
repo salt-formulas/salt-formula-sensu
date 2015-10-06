@@ -1,0 +1,2 @@
+sensu/*             /usr/share/salt-formulas/env/sensu/
+metadata/service/*      /usr/share/salt-formulas/reclass/service/sensu/

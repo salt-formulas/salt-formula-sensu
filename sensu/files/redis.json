@@ -1,0 +1,7 @@
+{%- from "sensu/map.jinja" import server with context -%}
+{
+  "redis": {
+    "host": "{{ server.database.host }}",
+    "port": {{ server.database.port }}
+  }
+}

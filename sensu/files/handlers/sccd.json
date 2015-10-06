@@ -1,0 +1,45 @@
+{%- for handler in pillar.sensu.server.handlers %}
+{%- if handler.name == handler_name %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "sccd": {
+      "type": "pipe",
+      {%- if handler.mutator is defined %}
+      "mutator": "{{ handler.mutator }}",
+      {%- endif %}
+      "command": "/etc/sensu/handlers/sccd.py"
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "sccd": {
+    {%- if handler.mail_user is defined %}
+    "mail_user": "{{ handler.mail_user }}",
+    {%- endif %}
+    {%- if handler.mail_password is defined %}
+    "mail_password": "{{ handler.mail_password }}",
+    {%- endif %}
+    {%- if handler.mail_authentication is defined %}
+    "mail_authentication": "{{ handler.mail_authentication }}",
+    {%- endif %}
+    {%- if handler.get('mail_encryption', 'none') == 'ssl' %}
+    "mail_encryption": "{{ handler.get('mail_encryption') }}",
+    {%- endif %}
+    "mail_subject": "SCCD Incident",
+    "mail_from": "{{ handler.mail_user }}",
+    "mail_host": "{{ handler.get('mail_host', 'localhost') }}",
+    "mail_port": "{{ handler.get('mail_port', '25') }}",
+    {%- if handler.kedb_host is defined %}
+    "kedb_host": "{{ handler.get('kedb_host', 'localhost') }}",
+    "kedb_port": "{{ handler.get('kedb_port', '6754') }}",
+    {%- endif %}
+    "sccd_email": "{{ handler.sccd_email }}",
+    "sccd_site": "{{ handler.sccd_site }}"
+  }
+}
+{%- endif %}
+{%- endif %}
+{%- endfor %}

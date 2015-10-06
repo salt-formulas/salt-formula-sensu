@@ -1,0 +1,8 @@
+{
+  "handlers": {
+    "stdout": {
+      "type": "pipe",
+      "command": "cat"
+    }
+  }
+}

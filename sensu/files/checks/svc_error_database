@@ -1,0 +1,335 @@
+An automatic system recovery has started. All configuration commands are blocked.	1001
+The error event log is full.	1002
+"The following causes are possible:
+The node is missing.
+The node is no longer a functional member of the system."	1196
+A node has been missing for 30 minutes.	1195
+The software install process has failed.	2010
+The software upgrade package delivery has failed.	2010
+Unable to connect to the SMTP (email) server	2600
+Unable to send mail through the SMTP (email) server	2601
+The Metro Mirror or Global Mirror feature capacity is not set.	3030
+The FlashCopy® feature capacity is not set.	3031
+The Virtualization feature has exceeded the amount that is licensed.	3032
+The FlashCopy feature has exceeded the amount that is licensed.	3032
+The Metro Mirror or Global Mirror feature has exceeded the amount that is licensed.	3032
+The usage for the thin-provisioned volume is not licensed.	3033
+The value set for the virtualization feature capacity is not valid.	3029
+A physical disk FlashCopy feature license is required.	3035
+A physical disk Metro Mirror and Global Mirror feature license is required.	3036
+A virtualization feature license is required.	3025
+Automatic recovery of offline node failed.	1194
+Unable to send email to any of the configured email servers.	3081
+The external virtualization feature license limit was exceeded.	3032
+Unable to connect to LDAP server.	2251
+The LDAP configuration is not valid.	2250
+The limit for the compression feature license was exceeded.	3032
+The limit for the compression feature license was exceeded.	3032
+Unable to connect to LDAP server that has been automatically configured.	2256
+Invalid LDAP configuration for automatically configured server.	2255
+A licensable feature's trial-timer has reached 0. The feature has now been deactivated.	3082
+A trial of a licensable feature will expire in 5 days.	3083
+A trial of a licensable feature will expire in 10 days.	3084
+A trial of a licensable feature will expire in 15 days.	3085
+A trial of a licensable feature will expire in 45 days.	3086
+Easy Tier feature license limit exceeded.	3032
+FlashCopy feature license limit exceeded.	3032
+External virtualization feature license limit exceeded.	3032
+Remote copy feature license limit exceeded.	3032
+The node ran out of base event sources. As a result, the node has stopped and exited the system.	2030
+The number of device logins has reduced.	1630
+A software error has occurred.	2030
+The block size is invalid, the capacity or LUN identity has changed during the managed disk initialization.	1660
+The managed disk is excluded because of excessive errors.	1310
+The remote port is excluded for a managed disk and node.	1220
+The local port is excluded.	1210
+The login is excluded.	1230
+The local port is excluded.	1211
+A timeout has occurred as a result of excessive processing time.	1340
+An error recovery procedure has occurred.	1370
+A managed disk I/O error has occurred.	1310
+The managed disk error count threshold has exceeded.	1310
+There are too many devices presented to the clustered system.	1200
+There are too many managed disks presented to the cluster (system).	1200
+There are too many LUNs presented to a node.	1200
+There are too many drives presented to a cluster (system).	1200
+A disk I/O medium error has occurred.	1320
+A suitable MDisk or drive for use as a quorum disk was not found.	1330
+The quorum disk is not available.	1335
+A controller configuration is not supported.	1625
+A login transport fault has occurred.	1360
+"A managed disk error recovery procedure (ERP) has occurred. The node or controller reported the following:
+Sense
+Key
+Code
+Qualifier"	1370
+One or more MDisks on a controller are degraded.	1623
+The controller configuration limits failover.	1625
+The controller configuration uses the RDAC mode; this is not supported.	1624
+Persistent unsupported controller configuration.	1695
+The controller system device is only connected to the node through a single initiator port.	1627
+The controller system device is only connected to the node through a single target port.	1627
+The controller system device is only connected to the clustered system nodes through a single target port.	1627
+The controller system device is only connected to the clustered system nodes through half of the expected target ports.	1627
+The controller system device has disconnected all target ports to the clustered system nodes.	1627
+A flash drive failed. A rebuild is required.	1201
+A flash drive is offline as a result of a drive hardware error.	1205
+A flash drive is reporting a predictive failure analysis (PFA).	1215
+A flash drive is reporting too many errors.	1215
+An unrecognized SAS device.	1665
+SAS error counts exceeded the warning thresholds.	1216
+SAS errors exceeded critical thresholds.	1216
+The drive initialization failed because of an unknown block size or a block size that is not valid; an unknown capacity or a capacity that is not valid; or was not able to set the required mode pages.	1661
+A flash drive is offline due to excessive errors.	1311
+A flash drive exceeded the warning temperature threshold.	1217
+A flash drive exceeded the offline temperature threshold.	1218
+A drive exceeded the warning temperature threshold.	1217
+Drive medium error.	1321
+Controller indicates that it does not support descriptor sense for LUNs that are greater than 2 TBs.	1625
+Too many enclosures were presented to a cluster (system).	1200
+The flash drive format was corrupted.	1204
+The block size for the flash drive was incorrect.	1204
+Too many controller target ports were presented to the cluster (system).	1200
+Too many target ports were presented to the clustered system from a single controller.	1200
+The drive is offline as a result of a drive hardware error.	1680
+The drive is reporting predictive failure analysis (PFA) errors.	1680
+The drive is reporting too many errors.	1680
+The drive format is corrupted.	1206
+The block size for the drive was incorrect.	1206
+The drive is offline due to excessive errors.	1680
+The error counts for the SAS drive exceeded the warning thresholds.	1285
+The SAS device was not recognized.	1666
+The SAS enclosure was not recognized.	1666
+The SAS device was not able to be identified.	1666
+There were excessive medium errors on the drive.	1680
+There were excessive overall timeout errors on the drive.	1680
+There were excessive times when the drive stopped.	1680
+A drive failed validation testing.	1680
+There were excessive medium errors on the flash drive.	1215
+There were excessive overall timeout errors on the flash drive.	1204
+Login excluded.	1231
+Drive failed.	1687
+The drive initialization failed because of an unknown block size or a block size that is not valid; an unknown capacity or a capacity that is not valid; or was not able to set the required mode pages.	1680
+A drive is reporting excessive errors.	1685
+There are too many drives presented to a cluster (system).	1200
+Reserved SAS port has devices attached.	1669
+Drive firmware download cancelled because of system changes	3090
+Drive firmware download cancelled because of a drive download problem	3090
+There are too many medium errors on the managed disk.	1610
+A managed disk group is offline.	1620
+There are insufficient virtual extents.	2030
+The managed disk has bad blocks. On an external controller, this can only be a copied medium error.	1840
+The system failed to create a bad block because MDisk already has the maximum number of allowed bad blocks.	1226
+The system failed to create a bad block because the clustered system already has the maximum number of allowed bad blocks.	1225
+The trigger prepare command has failed because of a cache flush failure.	1900
+The mapping is stopped because of the error that is indicated in the data.	1910
+The mapping is stopped because of a clustered system or complete I/O group failure, and the current state of the relationship could not be recovered.	1895
+One or more power supply unit fans have failed.	1124
+A fan is operating outside the expected range.	1126
+There was a fan status communications failure.	1126
+The power supply unit is not installed.	1128
+The power supply unit has indicated an input power failure.	1138
+The power supply unity has indicated an output failure.	1126
+The power supply unit has failed.	1124
+There is no communication with the power supply unit.	1148
+The model type for this enclosure is not valid.	1124
+The power supply unit type is unknown to this product.	1124
+The power supply unit serial number is not valid.	1124
+The canister temperature is at the warning level.	1098
+The canister temperature is at the critical level.	1095
+The SAS cable was excluded because of a missing device.	1260
+A SAS cable was excluded because too many change events were caused.	1260
+A SAS cable was excluded.	1255
+A SAS cable is operating at a reduced speed.	1260
+A SAS cable was excluded because frames were dropped.	1260
+A SAS cable was excluded because the enclosure discovery timed out.	1260
+A SAS cable is not present.	1265
+A canister was removed from the system.	1036
+A canister has been in a degraded state for too long and cannot be recovered.	1034
+A canister is encountering communication problems.	1038
+The canister VPD is not valid.	1032
+The canister has experienced too many resets.	1032
+The drive slot is causing the network to be unstable.	1686
+The drive slot is not running at 6 Gbps	1686
+The drive slot is dropping frames.	1686
+The drive is visible through only one SAS port.	1686
+The drive power control is not functional.	1008
+The drive slot contains a device that is not responding to queries.	1685
+The managed enclosure is not visible from any node canisters.	1042
+The electronics in the enclosure has failed.	1694
+The electronics in the enclosure has experienced a critical failure.	1008
+The SAS network has too many errors.	1048
+The SAS network has too many errors.	1048
+The firmware update for the enclosure component has failed.	3015
+More than one initiator port was detected on the same strand.	1005
+The order of the enclosures is different on each strand.	1005
+Multiple canisters are connected to a single canister port.	1005
+Canister 1 is connected to canister 2.	1005
+An enclosure is connected to more than one I/O group.	1005
+A managed enclosure is connected to the wrong I/O group.	1005
+An enclosure is connected to more than one chain.	1005
+Too many canisters are connected to a strand.	1005
+The canister is connected to the wrong port.	1005
+A SAS cable is excluded because of single port active drives.	1260
+More than one canister was detected at the same hop count.	1005
+The node location is not able to be detected.	1031
+An enclosure display cannot be updated.	1694
+There is an enclosure battery fault.	1118
+An enclosure battery is missing.	1112
+An enclosure battery is nearing end of life.	1114
+An enclosure battery is at end of life.	1113
+An enclosure battery conditioning is required but not possible.	1131
+There was an enclosure battery communications error.	1116
+A SAS port is active, but no enclosures can be detected.	1005
+There is a connectivity problem between a canister and an enclosure.	1036
+The FRU identity of the enclosure is not valid.	1008
+A new enclosure FRU was detected and needs to be configured.	1041
+The internal device on a node canister was excluded because of too many change events.	1034
+The internal connector on the node canister was excluded as the cause of single ported drives.	1034
+The canister temperature sensor cannot be read.	1034
+The enclosure contains both a node canister and an expansion canister.	1037
+The discovery failed to complete.	1048
+The VPD for the enclosure cannot be read.	1048
+There are too many self-initiated resets on the enclosure.	1048
+The slots are powered off.	1048
+The expansion or control enclosure temperature is at the critical level.	 
+The relationship is stopped because of a clustered system or complete I/O group failure, and the current state of the mapping could not be recovered.	1700
+A Metro Mirror or Global Mirror relationship or consistency group exists within a clustered system, but its partnership has been deleted.	3080
+A Global Mirror relationship has stopped because of a persistent I/O error.	1920
+A remote copy has stopped because of a persistent I/O error.	1915
+Remote copy has stopped.	1720
+There are too many clustered system partnerships. The number of partnerships has been reduced.	1710
+There are too many clustered system partnerships. The system has been excluded.	1710
+Background copy process for the Remote Copy was blocked.	1960
+The Global Mirror secondary volume is offline. The relationship has pinned hardened write data for this volume.	1925
+The Global Mirror secondary volume is offline due to missing IO group partner node. The relationship has pinned hardened write data for this volume but the node containing the required data is currently offline.	1730
+Global Mirror performance is likely to be impacted. A large amount of pinned data for the offline volumes has reduced the resource available to the global mirror secondary disks.	1925
+The thin-provisioned volume copy is offline because there is insufficient space.	1865
+The thin-provisioned volume copy is offline because the metadata is corrupt.	1862
+The thin-provisioned volume copy is offline because the repair has failed.	1860
+The compressed volume copy is offline because there is insufficient space.	1865
+The compressed volume copy is offline because the metadata is corrupt.	1862
+The compressed volume copy is offline because the repair has failed.	1860
+The compressed volume copy has bad blocks.	1850
+Unable to mirror medium error during volume copy synchronization	1950
+The mirrored volume is offline because the data cannot be synchronized.	1870
+The repair process for the mirrored disk has stopped because there is a difference between the copies.	1600
+Unrecognized node error.	1083
+Detected memory size does not match the expected memory size.	1022
+The WWNN that is stored on the service controller and the WWNN that is stored on the drive do not match.	1192
+Unable to detect any Fibre Channel adapter.	1016
+The system board processor has failed.	1020
+The internal disk file system of the node is damaged.	1187
+Unable to update BIOS settings.	1027
+Unable to update the service processor firmware for the system board.	1020
+The ambient temperature is too high while the system is starting.	1182
+Cannot form clustered system due to lack of resources.	1192
+Duplicate WWNN detected on the SAN.	1192
+A node is unable to communicate with other nodes.	1192
+The node hardware does not meet minimum requirements.	1183
+Too many software failures.	1188
+The node software is damaged.	1187
+The clustered system data cannot be read.	1030
+The clustered system data was not saved when power was lost.	1194
+Unable to read the service controller ID.	1044
+Node held in service state.	1189
+Node canister has the incorrect model for the enclosure.	3020
+Detected hardware is not a valid configuration.	1198
+Detected hardware needs activation.	1199
+The control canister temperature is at the critical level.	528
+The control canister battery is too cold, and at the critical level.	653
+The control canister battery is too hot, and at the critical level.	654
+The ambient temperature of the canister is close to the point where it stops performing I/O and enters a service state. The canister is currently continuing to operate.	768
+The temperature of the CPU in the canister is close to the point where the canister stops performing I/O and enters service state.	769
+There was a PCIe link failure between canisters.	1006
+The PCIe link is degraded between canisters.	1052
+The PCIe link for the CPU is degraded.	1034
+The Fibre Channel ports are not operational.	1060
+Clustered system path failure.	1550
+The SAN is not correctly zoned. As a result, more than 512 ports on the SAN have logged into one Flex System V7000 Storage Node port.	1800
+There are fewer Fibre Channel ports operational than are configured.	1061
+One or more Fibre Channel ports are running at a speed that is lower than the last saved speed.	1065
+A duplicate Fibre Channel frame has been detected, which indicates that there is an issue with the Fibre Channel fabric. Other Fibre Channel errors might also be generated.	1203
+Incorrect canister position.	1192
+No enclosure identity; cannot get status from partner.	1192
+Incorrect enclosure type.	1192
+No enclosure identity and partner does match.	1192
+No enclosure identity and partner does not match.	1192
+No enclosure identity and no state on partner.	1192
+No enclosure identity and no node state.	1192
+Clustered system identity is different on the enclosure and the node.	1023
+Cannot read enclosure identity.	1036
+Detected memory size does not match the expected memory size.	1032
+Enclosure VPD is inconsistent	1008
+The system board service processor has failed.	1034
+The internal disk file system of the node is damaged.	1187
+Unable to update the service processor firmware of the system board.	1034
+Ambient temperature is too high during system startup.	1098
+The internal PCIe switch of the node canister failed.	1034
+Cannot form clustered system due to lack of resources.	1192
+Duplicate WWNN detected on the SAN.	1133
+The node hardware does not meet the minimum requirements.	1034
+The internal drive of the node is failing.	1032
+The node software is inconsistent.	1187
+The clustered system data cannot be read.	1187
+The clustered system data was not saved when power was lost.	1194
+The canister battery is missing.	1153
+The canister battery has failed.	1154
+The canister battery’s temperature is too low.	1156
+The canister battery’s temperature is too high	1157
+The canister battery communications fault.	1158
+The canister battery has insufficient charge.	1184
+FC adapter missing.	1045
+FC adapter failed.	1046
+FC adapter PCI error.	1046
+FC adapter degraded.	1045
+Fewer Fibre Channel ports operational.	1061
+Fewer Fibre Channel IO ports operational.	1450
+SAS adapter missing.	1045
+SAS adapter failed.	1046
+SAS adapter PCI error.	1046
+SAS adapter degraded.	1046
+Ethernet adapter missing.	1045
+Ethernet adapter failed.	1046
+Ethernet adapter PCI error.	1046
+Ethernet adapter degraded.	1046
+Fewer Ethernet ports operational.	1401
+Bus adapter missing.	1032
+Bus adapter failed.	1032
+Bus adapter PCI error.	1032
+Bus adapter degraded.	1032
+Inter-canister PCIe link failure.	1006
+Ambient temperature warning.	1094
+CPU temperature warning.	1093
+Detected hardware is not a valid configuration.	1198
+Detected hardware needs activation.	1199
+Fabric too large.	1800
+Unable to determine the vital product data (VPD) for an FRU. This is probably because a new FRU has been installed and the software does not recognize that FRU. The clustered system continues to operate; however, you must upgrade the software to fix this warning.	2040
+The node warm started after a software error.	2030
+A connection to a configured remote system has been lost because of a connectivity problem.	1715
+A connection to a configured remote system has been lost because of too many minor errors.	1716
+The internal disk for a node has failed.	1030
+The hard disk is full and cannot capture any more output.	2030
+One of the two power supply units in the node has failed.	1096
+One of the two power supply units in the node cannot be detected.	1096
+One of the two power supply units in the node is without power.	1097
+Degraded PCIe lanes on a high-speed SAS adapter.	1121
+A PCI bus error occurred on a high-speed SAS adapter.	1121
+A high-speed SAS adapter requires a PCI bus reset.	1122
+Vital product data (VPD) is corrupt on high-speed SAS adapter.	1121
+A high-speed SAS controller is missing.	1032
+Degraded PCIe lanes on a high-speed SAS adapter.	1032
+A PCI bus error occurred on a high-speed SAS adapter.	1032
+A high-speed SAS adapter requires a PCI bus reset.	1034
+The limit on the number of clustered system secure shell (SSH) sessions has been reached.	2500
+Unable to access the Network Time Protocol (NTP) network time server.	2700
+An Ethernet port failure has occurred.	1401
+A server error has occurred.	2100
+An array MDisk has deconfigured members and has lost redundancy.	1689
+An array MDisk is corrupt because of lost metadata.	1240
+An array MDisk has taken a spare member that is not an exact match to the array goals.	1692
+An array has members that are located in a different I/O group.	1688
+An array MDisk is no longer protected by an appropriate number of suitable spares.	1690
+An array MDisk is offline. The metadata for the inflight writes is on a missing node.	1243
+An array MDisk is offline. Metadata on the missing node contains needed state information.	1243
+

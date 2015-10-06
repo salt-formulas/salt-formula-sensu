@@ -1,0 +1,34 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "mail": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/mail.py"
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "mail": {
+    {%- if handler.user is defined %}
+    "user": "{{ handler.user }}",
+    {%- endif %}
+    {%- if handler.password is defined %}
+    "password": "{{ handler.password }}",
+    {%- endif %}
+    {%- if handler.authentication is defined %}
+    "authentication": "{{ handler.authentication }}",
+    {%- endif %}
+    {%- if handler.get('encryption', 'none') == 'ssl' %}
+    "encryption": "{{ handler.get('encryption') }}",
+    {%- endif %}
+    "subject": "Sensu Alert",
+    "from": "sensu@{{ handler.get('domain', 'example.org') }}",
+    "to": "{{ handler.mail_to }}",
+    "host": "{{ handler.get('host', 'localhost') }}",
+    "port": "{{ handler.get('port', '25') }}"
+  }
+}
+{%- endif %}

@@ -1,0 +1,7 @@
+{%- from "sensu/map.jinja" import server with context -%}
+{
+  "api": {
+    "host": "{{ server.bind.address }}",
+    "port": {{ server.bind.port }}
+  }
+}

@@ -1,0 +1,17 @@
+applications:
+- sensu
+parameters:
+  sensu:
+    client:
+      enabled: true
+      message_queue:
+        engine: rabbitmq
+        host: ${_param:sensu_message_queue_host}
+        port: 5672
+        user: monitor
+        password: ${_param:rabbitmq_monitor_password}
+        virtual_host: '/monitor'
+      metric_handlers:
+      - graphite
+      check_handlers:
+      - default

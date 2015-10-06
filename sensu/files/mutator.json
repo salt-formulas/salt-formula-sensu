@@ -1,0 +1,11 @@
+{%- for mutator in pillar.sensu.server.mutators %}
+{%- if mutator_name == mutator.name %}
+{
+  "mutators": {
+    "{{ mutator.name }}": {
+      "command": "{{ mutator.command }}"
+    }
+  }
+}
+{%- endif %}
+{%- endfor %}

@@ -1,0 +1,11 @@
+parameters:
+  sensu:
+    server:
+      handler:
+        default:
+          set:
+          - statsd
+        statsd:
+          enabled: true
+          host: 127.0.0.1
+          port: 8125

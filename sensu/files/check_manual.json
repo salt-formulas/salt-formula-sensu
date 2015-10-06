@@ -1,0 +1,54 @@
+{%- for check in pillar.sensu.server.checks %}
+{%- if check_name == check.name %}
+{
+  "checks": {
+    "{{ check.name }}": {
+      "subscribers": [
+        {%- for subscriber in check.subscribers %}
+        "{{ subscriber }}"{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ],
+      "command": "{{ check.command }}",
+      {%- if check.notification is defined %}
+      "notification": "{{ check.notification }}",
+      {%- endif %}
+      {%- if check.asset is defined %}
+      "asset": "{{ check.asset }}",
+      {%- endif %}
+      {%- if check.customer is defined %}
+      "customer": "{{ check.customer }}",
+      {%- endif %}
+      {%- if check.standalone is defined %}
+      {%- if check.standalone %}
+      "standalone": true,
+      {%- else %}
+      "standalone": false,
+      {%- endif %}
+      {%- endif %}
+
+      {%- if check.type is defined %}
+      "handlers": [
+        {%- for handler in pillar.sensu.server.metric_handlers %}
+        "{{ handler }}"{% if not loop.last %},{% endif %}
+        {%- endfor %}
+      ],
+      "type": "{{ check.type }}",
+      {%- else %}
+      "handlers": [
+        "default"
+        {#
+        {%- for handler in pillar.sensu.server.check_handlers %}
+        "{{ handler }}"{% if not loop.last %},{% endif %}
+        {%- endfor %}
+        #}
+      ],
+      {%- endif %}
+      {%- if check.occurrences is defined %}
+      "occurrences": {{ check.occurrences }},
+      {%- endif %}
+      "interval": {{ check.interval }}
+    }
+  }
+}
+{%- endif %}
+{%- endfor %}

@@ -1,0 +1,29 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "statsd": {
+      "type": "pipe",
+      {%- if handler.mutator is defined %}
+      "mutator": "{{ handler.mutator }}",
+      {%- endif %}
+      "command": "/etc/sensu/handlers/statsd.py",
+      "severities": [
+        "ok",
+        "critical",
+        "warning",
+        "unknown"
+      ]
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "statsd": {
+    "host": "{{ handler.get('host', 'localhost') }}",
+    "port": "{{ handler.get('port', '8125') }}",
+    "prefix": "{{ handler.get('prefix', 'mon') }}"
+  }
+}
+{%- endif %}

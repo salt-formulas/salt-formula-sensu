@@ -1,0 +1,71 @@
+{%- from "linux/map.jinja" import system with context -%}
+{%- from "linux/map.jinja" import network with context -%}
+{%- from "sensu/map.jinja" import client with context -%}
+{
+  "client": {
+    "name": "{{ system.name }}.{{ system.domain }}",
+    "hostname": "{{ system.name }}",
+    "fqdn": "{{ system.name }}.{{ system.domain }}",
+    "cluster": "{{ pillar.linux.system.cluster }}",
+    "graphite_name": "{{ system.name|replace('.', '_') }}_{{ system.domain|replace('.', '_') }}",
+    "address": "{% if grains.ipv4[0] == '127.0.0.1' %}{{ grains.ipv4[1] }}{% else %}{{ grains.ipv4[0] }}{% endif %}",
+    {%- if pillar.get('mysql', {}).server is defined %}
+    {%- if pillar.mysql.server.enabled is defined %}
+    {%- from "mysql/map.jinja" import server with context %}
+    "mysql": {
+      "user": "{{ server.admin.user }}",
+      "password": "{{ server.admin.password }}",
+      "host": "{{ server.bind.address }}",
+      "port": "{{ server.bind.port }}"
+    },
+    {%- endif %}
+    {%- endif %}
+    {%- if pillar.get('galera', {}).cluster is defined %}
+    {%- from "mysql/map.jinja" import server with context %}
+    "mysql": {
+      "user": "{{ server.admin.user }}",
+      "password": "{{ server.admin.password }}",
+      "host": "{{ server.bind.address }}",
+      "port": "{{ server.bind.port }}"
+    },
+    {%- endif %}
+    {%- if pillar.get('keystone', {}).client is defined %}
+    {%- if pillar.keystone.client.enabled %}
+    {%- from "keystone/map.jinja" import client with context %}
+    "openstack": {
+      "tenant": "{{ client.server.tenant }}",
+      "user": "{{ client.server.user }}",
+      "password": "{{ client.server.password }}",
+      "host": "{{ client.server.host }}",
+      "port": "{{ client.server.public_port }}"
+    },
+    {%- endif %}
+    {%- endif %}
+    "keepalive": {
+      "thresholds": {
+        "warning": {{ client.get('keepalive_warning', '120') }},
+        "critical": {{ client.get('keepalive_critical', '180') }}
+      },
+      "handler": "default"
+    },
+    "subscriptions": [
+      {% for key in grains.roles %}
+      "local-{{ key|replace('.', '-') }}",
+      {%- endfor %}
+      {%- if pillar.sensu.server is defined %}
+      "remote-internet",
+      "remote-network",
+      {%- endif %}
+      "local-{{ grains.os|lower }}-system",
+      {%- if grains.os != grains.os_family %}
+      "local-{{ grains.os_family|lower }}-system",
+      {%- endif %}
+      {%- if pillar.linux is defined %}
+      "{{ pillar.linux.system.name|replace('.', '-') }}-{{ pillar.linux.system.domain|replace('.', '-') }}",
+      {%- else %}
+      "{{ pillar.system.name|replace('.', '-') }}",
+      {%- endif %}
+      "local-common"
+    ]
+  }
+}

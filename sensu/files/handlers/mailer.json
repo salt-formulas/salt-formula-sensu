@@ -1,0 +1,35 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "mailer": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/mailer.rb"
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "mailer": {
+    "admin_gui": "http://admin.example.com:8080/",
+    "mail_from": "sensu@{{ handler.get('domain', 'example.org') }}",
+    "mail_to": "{{ handler.mail_to }}",
+    "smtp_address": "{{ handler.get('host', 'localhost') }}",
+    "smtp_port": "{{ handler.get('port', '25') }}",
+    "smtp_domain": "{{ handler.get('domain', 'example.org') }}"
+    {%- if handler.user is defined %}
+    ,"smtp_username": "{{ handler.user }}"
+    {%- endif %}
+    {%- if handler.password is defined %}
+    ,"smtp_password": "{{ handler.password }}"
+    {%- endif %}
+    {%- if handler.authentication is defined %}
+    ,"smtp_authentication": "{{ handler.authentication }}"
+    {%- endif %}
+    {%- if handler.get('encryption', 'none') == 'ssl' %}
+    ,"smtp_enable_starttls_auto": true
+    {%- endif %}
+  }
+}
+{%- endif %}

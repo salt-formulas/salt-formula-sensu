@@ -1,0 +1,38 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "slack": {
+      "type": "pipe",
+      {%- if handler.mutator is defined %}
+      "mutator": "{{ handler.mutator }}",
+      {%- endif %}
+      "command": "/etc/sensu/handlers/slack.rb",
+      "severities": [
+        "ok",
+        "critical",
+        "warning",
+        "unknown"
+      ]
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "slack": {
+    "webhook_url": "{{ handler.webhook_url }}",
+    "channel": "{{ handler.channel }}",
+    "markdown_enabled": false
+  }
+}
+{%- endif %}
+{#
+    "message_prefix": "optional prefix - can be used for mentions",
+    "surround": "optional - can be used for bold(*), italics(_), code(`) and preformatted(```)",
+    "bot_name": "optional bot name, defaults to slack defined",
+    "proxy_addr": "optional - your proxy address for http proxy, like squid, i.e. 192.168.10.100",
+    "proxy_port": "optional - should be port used by proxy, i.e. 3128",
+  }
+}
+#}

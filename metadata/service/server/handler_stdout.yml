@@ -1,0 +1,9 @@
+parameters:
+  sensu:
+    server:
+      handler:
+        default:
+          set:
+          - stdout
+        stdout:
+          enabled: true
