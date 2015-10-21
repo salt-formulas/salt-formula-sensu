@@ -16,6 +16,11 @@ sensu_server_pip:
   - require:
     - pkg: sensu_server_packages
 
+purge_sensu_conf_dir:
+  file.directory:
+    - name: /etc/sensu/conf.d/
+    - clean: True
+
 {%- if server.mine_checks %}
 
 {%- set client_checks = {} %}
