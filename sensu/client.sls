@@ -27,34 +27,17 @@ sensu_client_packages:
 
 {%- if plugin_name == 'sensu_community_plugins' %}
 
-sensu_client_community_plugins
-  gem.installed:
-  - names:
-    - sensu-plugin
+sensu_client_community_plugins:
+  pkg.installed:
+  - names: ruby-sensu-plugin
 
 {%- endif %}
 
 {%- if plugin_name == 'monitoring_for_openstack' %}
 
-sensu_monitor_openstack_six:
-  pip.installed:
-  - name: six>=1.9.0
-
-sensu_monitor_openstack_source:
-  git.latest:
-  - name: https://github.com/stackforge/monitoring-for-openstack.git
-  - target: /root/monitoring-for-openstack
-  - rev: master
-  - require:
-    - pip: sensu_monitor_openstack_six
-
-sensu_monitor_openstack_install:
-  cmd.run:
-  - name: python setup.py install
-  - cwd: /root/monitoring-for-openstack
-  - unless: pip freeze | grep monitoring-for-openstack
-  - require:
-    - git: sensu_monitor_openstack_source
+sensu_monitoring_os_packages:
+  pkg.installed:
+  - names: monitoring-for-openstack
 
 {%- endif %}
 
