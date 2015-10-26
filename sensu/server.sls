@@ -10,8 +10,8 @@ sensu_server_packages:
   - require_in:
     - file: /etc/sensu
 
-sensu_server_pkg:
-  pkg.installed:
+sensu_server_pip:
+  pip.installed:
   - name: sensu
   - require:
     - pkg: sensu_server_packages
