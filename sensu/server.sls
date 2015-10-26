@@ -6,7 +6,7 @@ include:
 
 sensu_server_packages:
   pkg.installed:
-  - name: {{ server.pkgs }}
+  - names: {{ server.pkgs }}
   - require_in:
     - file: /etc/sensu
 
