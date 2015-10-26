@@ -12,13 +12,13 @@ sensu_server_packages:
 
 sensu_server_pip:
   pip.installed:
-  - name: sensu
+  - names: sensu
   - require:
     - pkg: sensu_server_packages
 
 purge_sensu_conf_dir:
   file.directory:
-    - name: /etc/sensu/conf.d/
+    - names: /etc/sensu/conf.d/
     - clean: True
 
 {%- if server.mine_checks %}
