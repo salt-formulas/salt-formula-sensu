@@ -6,19 +6,19 @@ include:
 
 sensu_server_packages:
   pkg.installed:
-  - names: {{ server.pkgs }}
+  - name: {{ server.pkgs }}
   - require_in:
     - file: /etc/sensu
 
-sensu_server_pip:
-  pip.installed:
-  - names: sensu
+sensu_server_pkg:
+  pkg.installed:
+  - name: sensu
   - require:
     - pkg: sensu_server_packages
 
 purge_sensu_conf_dir:
   file.directory:
-    - names: /etc/sensu/conf.d/
+    - name: /etc/sensu/conf.d/
     - clean: True
 
 {%- if server.mine_checks %}

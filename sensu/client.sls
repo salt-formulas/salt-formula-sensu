@@ -37,7 +37,7 @@ sensu_client_community_plugins:
 
 sensu_monitoring_os_packages:
   pkg.installed:
-  - names: monitoring-for-openstack
+  - name: monitoring-for-openstack
 
 {%- endif %}
 
