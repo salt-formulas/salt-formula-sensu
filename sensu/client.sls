@@ -41,6 +41,14 @@ sensu_monitoring_os_packages:
 
 {%- endif %}
 
+{%- if plugin_name == 'network_monitoring' %}
+
+sensu_monitoring_network_packages:
+  pkg.installed:
+  - name: libnet-snmp-perl
+
+{%- endif %}
+
 {%- endif %}
 {%- endfor %}
 

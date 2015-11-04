@@ -1,0 +1,6 @@
+parameters:
+  sensu:
+    client:
+      plugin:
+        network_monitoring:
+          enabled: true
