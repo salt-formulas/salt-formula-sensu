@@ -1,5 +1,7 @@
 applications:
 - sensu
+classes:
+- service.sensu.support
 parameters:
   sensu:
     client:

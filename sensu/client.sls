@@ -52,14 +52,22 @@ sensu_monitoring_network_packages:
 {%- endif %}
 {%- endfor %}
 
-sensu_client_check_grains:
+sensu_client_checks_grains_dir:
+  file.directory:
+  - name: /etc/salt/grains.d
+  - mode: 700
+  - makedirs: true
+  - user: root
+
+sensu_client_checks_grains:
   file.managed:
-  - name: /etc/salt/grains
-  - source: salt://sensu/files/checks.grain
+  - name: /etc/salt/grains.d/sensu
+  - source: salt://sensu/files/sensu.grain
   - template: jinja
   - mode: 600
   - require:
     - pkg: sensu_client_packages
+    - file: sensu_client_checks_grains_dir
 
 /etc/sensu/conf.d/rabbitmq.json:
   file.managed:
