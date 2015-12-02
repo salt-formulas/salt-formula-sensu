@@ -1,4 +1,4 @@
-{%- from "nginx/map.jinja" import server with context -%}
+{%- from "sensu/map.jinja" import client with context %}
 check:
   local_sensu_server_proc:
     command: "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_procs -C sensu-server -u sensu -c 1:1"
