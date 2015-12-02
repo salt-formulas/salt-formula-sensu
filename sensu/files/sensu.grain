@@ -1,10 +1,10 @@
-sensu_checks:
-{%- from "sensu/map.jinja" import client with context %}
-{%- for service in client.supported_services %}
-{%- if service in grains.get('services', []) %}
-{%- set service_checks_file = service+'/files/sensu.conf' %}
-{%- macro indent_service_checks() %}{% include service_checks_file %}{% endmacro %}
-{{ indent_service_checks()|indent(2, true) }}
-
+{%- set grains = {'sensu': {'check': {}}} %}
+{%- for service_name, service in pillar.items() %}
+{%- if service.get('_support', {}).get('sensu', {}).get('enabled', False) %}
+{%- set grains_fragment_file = service_name+'/meta/sensu.yml' %}
+{%- macro load_grains_file() %}{% include grains_fragment_file %}{% endmacro %}
+{%- set grains_yaml = load_grains_file()|load_yaml %}
+{%- set _dummy = grains.sensu.check.update(grains_yaml.check) %}
 {%- endif %}
 {%- endfor %}
+{{ grains|yaml(False) }}
