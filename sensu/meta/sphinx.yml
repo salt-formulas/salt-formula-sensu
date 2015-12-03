@@ -6,7 +6,17 @@ doc:
   {%- from "sensu/map.jinja" import client with context %}
     client:
       name: client
-      param: 
-        version:
-          value: {{ sensu['cmd.run']('sensu-minion --version')|replace('sensu-minion ', '') }}
+      param:
+        message_queue:
+          value: {{ client.message_queue.host }}:{{ client.message_queue.port }}
+  {%- endif %}
+  {%- if pillar.sensu.server is defined %}
+    server:
+      name: server
+      param: {}
+  {%- endif %}
+  {%- if pillar.sensu.dashboard is defined %}
+    dashboard:
+      name: dashboard
+      param: {}
   {%- endif %}
