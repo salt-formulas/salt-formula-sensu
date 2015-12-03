@@ -1,0 +1,12 @@
+doc:
+  name: Sensu
+  description: Monitor servers, services, application health, and business KPIs. Get notified about failures before your users do. Collect and analyze custom metrics.
+  role:
+  {%- if pillar.sensu.client is defined %}
+  {%- from "sensu/map.jinja" import client with context %}
+    client:
+      name: client
+      param: 
+        version:
+          value: {{ sensu['cmd.run']('sensu-minion --version')|replace('sensu-minion ', '') }}
+  {%- endif %}
