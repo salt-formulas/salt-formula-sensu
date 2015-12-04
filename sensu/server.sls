@@ -29,9 +29,9 @@ purge_sensu_conf_dir:
 
 {%- set rowloop = loop %}
 
-{%- if node_grains.get('sensu_checks', {}) is not none %}
+{%- if node_grains.get('sensu', {}) is not none %}
 
-{%- for check_name, check in node_grains.get('sensu_checks', {}).iteritems() %}
+{%- for check_name, check in node_grains.get('sensu', {}).get('checks', {}).iteritems() %}
 
 /etc/sensu/conf.d/check_{{ check_name }}.json_{{ rowloop.index }}-{{ loop.index }}:
   file.managed:

@@ -59,12 +59,24 @@ sensu_client_checks_grains_dir:
   - makedirs: true
   - user: root
 
+{%- set service_grains = {'sensu': {'check': {}}} %}
+{%- for service_name, service in pillar.items() %}
+{%- if service.get('_support', {}).get('sensu', {}).get('enabled', False) %}
+{%- set grains_fragment_file = service_name+'/meta/sensu.yml' %}
+{%- macro load_grains_file() %}{% include grains_fragment_file %}{% endmacro %}
+{%- set grains_yaml = load_grains_file()|load_yaml %}
+{%- set _dummy = service_grains.sensu.check.update(grains_yaml.check) %}
+{%- endif %}
+{%- endfor %}
+
 sensu_client_checks_grains:
   file.managed:
   - name: /etc/salt/grains.d/sensu
   - source: salt://sensu/files/sensu.grain
   - template: jinja
   - mode: 600
+  - defaults:
+    service_grains: {{ service_grains|yaml }}
   - require:
     - pkg: sensu_client_packages
     - file: sensu_client_checks_grains_dir
