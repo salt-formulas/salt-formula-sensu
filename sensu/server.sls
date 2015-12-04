@@ -23,15 +23,11 @@ purge_sensu_conf_dir:
 
 {%- if server.mine_checks %}
 
-{%- set client_checks = {} %}
-
 {%- for node_name, node_grains in salt['mine.get']('*', 'grains.items').iteritems() %}
 
 {%- set rowloop = loop %}
 
-{%- if node_grains.get('sensu', {}) is not none %}
-
-{%- for check_name, check in node_grains.get('sensu', {}).get('checks', {}).iteritems() %}
+{%- for check_name, check in node_grains.get('sensu', {}).get('check', {}).iteritems() %}
 
 /etc/sensu/conf.d/check_{{ check_name }}.json_{{ rowloop.index }}-{{ loop.index }}:
   file.managed:
@@ -48,8 +44,6 @@ purge_sensu_conf_dir:
     - service: service_sensu_api
 
 {%- endfor %}
-
-{%- endif %}
 
 {%- endfor %}
 

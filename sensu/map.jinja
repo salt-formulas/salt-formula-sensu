@@ -1,38 +1,10 @@
-{% set services = [
-  'billometer',
-  'cinder',
-  'ceilometer',
-  'gitlab',
-  'glance',
-  'haproxy',
-  'heat',
-  'horizon',
-  'kedb',
-  'keystone',
-  'linux',
-  'memcached',
-  'mysql',
-  'nginx',
-  'nova',
-  'ntp',
-  'opencontrail',
-  'openssh',
-  'postgresql',
-  'rabbitmq',
-  'salt',
-  'sensu',
-  'supervisor',
-] %}
-
 {% set server = salt['grains.filter_by']({
     'Debian': {
         'pkgs': ['sensu', 'python-pip'],
-        'supported_services': services,
         'mine_checks': True,
     },
     'RedHat': {
         'pkgs': ['sensu'],
-        'supported_services': services,
         'mine_checks': True,
     },
 }, merge=salt['pillar.get']('sensu:server')) %}
@@ -40,12 +12,10 @@
 {% set client = salt['grains.filter_by']({
     'Debian': {
         'pkgs': ['sensu', 'nagios-plugins-basic', 'curl'],
-        'supported_services': services,
         'plugin': {}
     },
     'RedHat': {
         'pkgs': ['sensu', 'nagios-plugins-ping', 'nagios-plugins-procs', 'nagios-plugins-load', 'nagios-plugins-swap', 'nagios-plugins-ntp', 'nagios-plugins-http', 'nagios-plugins-disk', 'net-snmp-utils', 'pynag'],
-        'supported_services': services,
         'plugin': {}
     },
 }, merge=salt['pillar.get']('sensu:client')) %}
