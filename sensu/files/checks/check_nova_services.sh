@@ -18,7 +18,7 @@ while getopts ":u:p:t:h:" opt; do
     esac
 done
 
-read -ra nova_state_down <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | awk '/'down'/ {print "Service " $1 " on " $2 " is DOWN" ";"}')
+read -ra nova_state_down <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | awk '/'down'/ {print "Service " $2 " on " $3 " is DOWN" ";"}')
 
 EXITVAL=0
 
