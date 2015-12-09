@@ -25,7 +25,8 @@ check:
     subscribers:
     - local-sensu-dashboard
 {%- if client.get('plugin', {}).network_monitoring is defined %}
-{%- for device_name, device in client.network_device.iteritems() %}
+{%- if pillar.get('external', {}).network_device is defined %}
+{%- for device_name, device in pillar.external.network_device.iteritems() %}
 {%- for interface_name, interface in device.get('interface', {}).iteritems() %}
   remote_{{ device_name }}_{{ interface_name|replace("/", "_") }}_interface_up:
     command: "/etc/sensu/plugins/check_snmp_int.pl -H {{ device.management.address }} -C {{ device.community }} -n ^{{ interface_name }}$"
@@ -43,4 +44,5 @@ check:
 {%- endfor %}
 {%- endfor %}
 {%- endfor %}
+{%- endif %}
 {%- endif %}
