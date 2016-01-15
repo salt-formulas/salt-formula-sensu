@@ -1,0 +1,49 @@
+#!/usr/bin/python3
+import imaplib
+from argparse import ArgumentParser
+from sys import argv,exit
+from socket import error,timeout
+from time import time
+
+parse = ArgumentParser(description='IMAP plugin for Nagios')
+parse.add_argument('-host', help='Host')
+parse.add_argument('-c', help='Critical (float)')
+parse.add_argument('-p', help='Port')
+parse.add_argument('-ssl', help='Ssl On')
+parse.add_argument('-w', help='Warning (float)')
+args = parse.parse_args()
+
+def main(host,warning,critical,encrypt=None,port=None):
+    t = time()
+    if encrypt==1:
+        if port==None:
+            c = imaplib.IMAP4_SSL(host=host)
+        else:
+            c = imaplib.IMAP4_SSL(host=host,port=int(port))
+    else:
+        if port==None:
+            c = imaplib.IMAP4(host=host)
+        else:
+            c = imaplib.IMAP4_SSL(host=host,port=int(port))   
+    c.PROTOCOL_VERSION
+    c.shutdown()
+    tout = time()-t
+    if tout>=critical:
+        print("IMAP CRITICAL: %f" %tout)
+        exit(2)
+    elif tout>=warning:
+        print("IMAP WARNING: %f" %tout)
+        exit(1)
+    else:
+        print("IMAP OK: %f" %tout)
+        exit(0)
+
+timeout = 10
+try:
+    print(main(args.host,float(args.w),float(args.c),args.ssl,args.p))
+except error:
+    print("Socket Error.")
+    exit(3)
+except TypeError:
+    print("Syntax Error.")
+    exit(3)
