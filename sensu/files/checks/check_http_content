@@ -1,0 +1,107 @@
+#!/usr/bin/perl
+
+#------------------------------------------------------------------------------
+# check_http_content
+# 	retrieve an http/s url and checks its content for a given expression
+# 	if the expression is found exits with OK, otherwise exits with CRITICAL
+#
+# Copyright 2007, CAPSiDE SL	http://www.capside.com
+# Licensed under GPLv2
+#     This program is free software; you can redistribute it and/or modify
+#     it under the terms of the GNU General Public License as published by
+#     the Free Software Foundation; either version 2 of the License, or
+#     (at your option) any later version.
+# 
+#     This program is distributed in the hope that it will be useful,
+#     but WITHOUT ANY WARRANTY; without even the implied warranty of
+#     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#     GNU General Public License for more details.
+# 
+#     You should have received a copy of the GNU General Public License
+#     along with Opsview; if not, write to the Free Software
+#     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# -----------------------------------------------------------------------------
+
+use strict;
+use Getopt::Std;
+use LWP::UserAgent;
+
+my $plugin_name = 'check_http_content';
+my $VERSION		= '0.01';
+
+# getopt module config
+$Getopt::Std::STANDARD_HELP_VERSION = 1;
+
+# nagios exit codes
+use constant EXIT_OK		=> 0;
+use constant EXIT_WARNING	=> 1;
+use constant EXIT_CRITICAL	=> 2;
+use constant EXIT_UNKNOWN	=> 3;
+
+
+# parse cmd opts
+my %opts;
+getopts('vU:t:m:', \%opts);
+$opts{t} = 60 unless (defined $opts{t});
+if (not (defined $opts{U} and defined $opts{m})) {
+	print "ERROR: INVALID USAGE\n";
+	HELP_MESSAGE();
+	exit EXIT_CRITICAL;
+}
+
+my $status = EXIT_OK;
+# set trx timeout 
+my $ua = LWP::UserAgent->new;
+$ua->timeout($opts{t});
+
+# retrieve url
+my $response = $ua->get($opts{U});
+
+if (not $response->is_success) {
+	print "ERROR: CANNOT RETRIEVE URL: ", $response->status_line, "\n";
+	$status = EXIT_UNKNOWN;
+} else {
+	my $content = $response->content;
+	if ($content =~ m/$opts{m}/gsm) {
+		print "CONTENT OK: EXPR FOUND";
+		$status = EXIT_OK;
+	} else {
+		my @output_lines = split(/\n/, $content);
+		print "CONTENT ERROR: EXPR NOT FOUND (last: $output_lines[$#output_lines])\nfull output was:\n$content";
+		$status = EXIT_CRITICAL;
+	}
+}
+
+exit $status;
+
+
+
+sub HELP_MESSAGE 
+{
+	print <<EOHELP
+	Retrieve an http/s URL and looks in its output for a given text. 
+	Returns CRITICAL is not found, OK if found, UNKNOWN otherwise.
+	
+	--help      shows this message
+	--version   shows version information
+
+	-U          URL to retrieve (http or https)
+	-m <text>   Text to match in the output of the URL
+	-t          Timeout in seconds to wait for the URL to load. If the page fails to load, 
+	            $plugin_name will exit with UNKNOWN state (default 60)
+
+EOHELP
+;
+}
+
+
+sub VERSION_MESSAGE 
+{
+	print <<EOVM
+$plugin_name v. $VERSION
+Copyright 2007, CAPSiDE SL - http://www.capside.com - Licensed under GPLv2
+
+EOVM
+;
+}
