@@ -1,2 +1,7 @@
 salt-formula-sensu: ruby-script-but-no-ruby-dep usr/share/salt-formulas/env/sensu/files/checks/check-smtp.rb
 salt-formula-sensu: python-script-but-no-python-dep usr/share/salt-formulas/env/sensu/files/checks/check_imap
+salt-formula-sensu: python-script-but-no-python-dep usr/share/salt-formulas/env/sensu/files/checks/check_ceph_df
+salt-formula-sensu: python-script-but-no-python-dep usr/share/salt-formulas/env/sensu/files/checks/check_ceph_health
+salt-formula-sensu: python-script-but-no-python-dep usr/share/salt-formulas/env/sensu/files/checks/check_ceph_mon
+salt-formula-sensu: python-script-but-no-python-dep usr/share/salt-formulas/env/sensu/files/checks/check_ceph_osd
+salt-formula-sensu: python-script-but-no-python-dep usr/share/salt-formulas/env/sensu/files/checks/check_ceph_rgw
