@@ -14,7 +14,7 @@ Sensu Server with API
       server:
         enabled: true
         keepalive_warning: 20
-        keepalive_critical: 60        
+        keepalive_critical: 60
         mine_checks: true
         database:
           engine: redis
@@ -35,6 +35,7 @@ Sensu Server with API
             enabled: true
             set:
             - mail
+            - pipe
           stdout:
             enabled: true
           mail:
@@ -46,6 +47,9 @@ Sensu Server with API
             authentication: cram_md5
             encryption: ssl
             domain: 'domain.cz'
+          pipe:
+            enabled: true
+            command: /usr/bin/tee /tmp/debug
 
 Sensu Dashboard (now uchiwa)
 

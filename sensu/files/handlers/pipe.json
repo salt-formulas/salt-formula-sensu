@@ -1,0 +1,9 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{
+  "handlers": {
+    "{{ handler_name }}": {
+      "type": "pipe",
+      "command": "{{ handler.command }}"
+    }
+  }
+}
