@@ -23,8 +23,12 @@ sensu:
         enabled: true
         set:
         - mail
+        - pipe
       stdout:
         enabled: true
+      pipe:
+        enabled: true
+        command: "/usr/bin/tee /tmp/debug"
       mail:
         mail_to: 'mail@domain.cz'
         host: smtp1.domain.cz

@@ -84,7 +84,7 @@ purge_sensu_conf_dir:
 
 {%- for handler_name, handler in server.get('handler', {}).iteritems() %}
 
-{%- if handler_name in ['default', 'flapjack', 'mail', 'sccd', 'stdout', 'statsd', 'slack']  %}
+{%- if handler_name in ['default', 'flapjack', 'mail', 'sccd', 'stdout', 'statsd', 'slack', 'pipe']  %}
 
 {%- include "sensu/server/_handler_"+handler_name+".sls" %}
 
