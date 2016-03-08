@@ -1,5 +1,3 @@
-
 sensu ALL=(ALL) NOPASSWD: /usr/bin/contrail-status
 sensu ALL=(ALL) NOPASSWD: /etc/sensu/plugins/check_supervisor_proc.py
 sensu ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl
-#
