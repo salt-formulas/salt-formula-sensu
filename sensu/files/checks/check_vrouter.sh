@@ -15,7 +15,7 @@ if [ ${#contrail_status[@]} -ne ${#contrail_test[@]} ]; then
         check_ok=1
 fi
 
-if [ check_ok=1 ]; then
+if [ $check_ok = 1 ]; then
 
         read -ra contrail_test <<< ${contrail_status[@]#STARTING}
 
