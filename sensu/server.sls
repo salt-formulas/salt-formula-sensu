@@ -3,6 +3,7 @@
 
 include:
 - sensu._common
+- sensu.client
 
 sensu_server_packages:
   pkg.installed:
@@ -15,11 +16,6 @@ sensu_server_pip:
   - name: sensu
   - require:
     - pkg: sensu_server_packages
-
-purge_sensu_conf_dir:
-  file.directory:
-    - name: /etc/sensu/conf.d/
-    - clean: True
 
 {%- if server.mine_checks %}
 
@@ -39,6 +35,8 @@ purge_sensu_conf_dir:
     check: {{ check|yaml }}
   - require:
     - pkg: sensu_server_packages
+  - require_in:
+    - file: purge_sensu_conf_dir
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -59,6 +57,8 @@ purge_sensu_conf_dir:
     check_name: "{{ check.name }}"
   - require:
     - pkg: sensu_server_packages
+  - require_in:
+    - file: purge_sensu_conf_dir
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -76,6 +76,8 @@ purge_sensu_conf_dir:
   - require:
     - file: /etc/sensu/config.json
     - pkg: sensu_packages
+  - require_in:
+    - file: purge_sensu_conf_dir
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -99,6 +101,8 @@ purge_sensu_conf_dir:
   - mode: 644
   - require:
     - file: /etc/sensu
+  - require_in:
+    - file: purge_sensu_conf_dir
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -110,9 +114,19 @@ purge_sensu_conf_dir:
   - mode: 644
   - require:
     - file: /etc/sensu
+  - require_in:
+    - file: purge_sensu_conf_dir
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
+
+purge_sensu_conf_dir:
+  file.directory:
+    - name: /etc/sensu/conf.d/
+    - clean: True
+    - require:
+      - file: /etc/sensu/conf.d/client.json
+      - file: /etc/sensu/conf.d/rabbitmq.json
 
 service_sensu_server:
   service.running:

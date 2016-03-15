@@ -15,6 +15,8 @@ python-statsd:
     - service: service_sensu_api
   - require:
     - pip: python-statsd
+  - require_in:
+    - file: purge_sensu_conf_dir
 
 /etc/sensu/conf.d/handler_statsd.json:
   file.managed:
@@ -26,6 +28,8 @@ python-statsd:
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
+  - require_in:
+    - file: purge_sensu_conf_dir
 
 /etc/sensu/handlers/statsd_handler.py:
   file.managed:

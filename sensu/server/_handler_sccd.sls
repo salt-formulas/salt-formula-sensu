@@ -9,6 +9,8 @@
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
+  - require_in:
+    - file: purge_sensu_conf_dir
 
 /etc/sensu/conf.d/handler_sccd.json:
   file.managed:
@@ -20,6 +22,8 @@
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
+  - require_in:
+    - file: purge_sensu_conf_dir
 
 /etc/sensu/handlers/sccd.py:
   file.managed:
