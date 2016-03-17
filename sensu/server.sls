@@ -123,7 +123,7 @@ sensu_server_pip:
 sensu_conf_dir_clean:
   file.directory:
     - name: /etc/sensu/conf.d/
-    - clean: True
+#    - clean: True
     - require:
       - file: /etc/sensu/conf.d/client.json
       - file: /etc/sensu/conf.d/rabbitmq.json
