@@ -36,7 +36,7 @@ sensu_server_pip:
   - require:
     - pkg: sensu_server_packages
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -58,7 +58,7 @@ sensu_server_pip:
   - require:
     - pkg: sensu_server_packages
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -77,7 +77,7 @@ sensu_server_pip:
     - file: /etc/sensu/config.json
     - pkg: sensu_packages
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -102,7 +102,7 @@ sensu_server_pip:
   - require:
     - file: /etc/sensu
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
@@ -115,12 +115,12 @@ sensu_server_pip:
   - require:
     - file: /etc/sensu
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
 
-purge_sensu_conf_dir:
+sensu_conf_dir_clean:
   file.directory:
     - name: /etc/sensu/conf.d/
     - clean: True
