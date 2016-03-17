@@ -10,4 +10,4 @@
     - service: service_sensu_server
     - service: service_sensu_api
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean

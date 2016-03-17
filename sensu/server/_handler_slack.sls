@@ -10,7 +10,7 @@
     - service: service_sensu_server
     - service: service_sensu_api
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
 
 /etc/sensu/conf.d/handler_slack.json:
   file.managed:
@@ -23,7 +23,7 @@
     - service: service_sensu_server
     - service: service_sensu_api
   - require_in:
-    - file: purge_sensu_conf_dir
+    - file: sensu_conf_dir_clean
 
 /etc/sensu/handlers/slack.rb:
   file.managed:
