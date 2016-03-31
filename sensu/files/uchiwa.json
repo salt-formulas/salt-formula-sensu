@@ -13,8 +13,10 @@
   "uchiwa": {
     "host": "{{ dashboard.bind.address }}",
     "port": {{ dashboard.bind.port }},
+    {%- if dashboard.get('admin', {}).get('username', None) %}
     "user": "{{ dashboard.admin.username }}",
     "pass": "{{ dashboard.admin.password }}",
+    {%- endif %}
     "refresh": 5
   }
 }
