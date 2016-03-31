@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import sys
 import smtplib
-from optparse import OptionParser
 import email
 from email.mime.text import MIMEText
-import json
 from datetime import datetime
+import time
 try:
     from sensu import Handler
 except ImportError:
