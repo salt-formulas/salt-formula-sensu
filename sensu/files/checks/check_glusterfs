@@ -40,6 +40,23 @@ Exit () {
 	exit $EXITVAL
 }
 
+get_status() {
+	ret=1
+	tries=3
+	while [ $ret -ne 0 ] || [ $tries -ne 0 ]; do
+		out=$(timeout -s9 10 sudo gluster volume status ${VOLUME} detail 2>&1)
+		ret=$?
+		[ $ret -ne 0 ] && sleep 1
+		tries=$[ $tries - 1 ]
+	done
+
+	if [ $ret -ne 0 ]; then
+		Exit UNKNOWN "$out"
+	fi
+
+	echo "$out"
+}
+
 # check for commands
 for cmd in basename bc awk sudo pidof gluster; do
 	if ! type -p "$cmd" >/dev/null; then
@@ -91,7 +108,7 @@ while read -r line; do
 		fi
 		;;
 	esac
-done < <(sudo gluster volume status ${VOLUME} detail)
+done < <(get_status)
 
 if [ $bricksfound -eq 0 ]; then
 	Exit CRITICAL "no bricks found"
