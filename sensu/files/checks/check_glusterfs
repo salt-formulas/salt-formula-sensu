@@ -44,10 +44,11 @@ get_status() {
 	ret=1
 	tries=3
 	while [ $ret -ne 0 ] || [ $tries -ne 0 ]; do
-		out=$(timeout -s9 10 sudo gluster volume status ${VOLUME} detail 2>&1)
+		out=$(timeout -s9 5 sudo gluster volume status ${VOLUME} detail 2>&1)
 		ret=$?
-		[ $ret -ne 0 ] && sleep 1
+		[ $ret -eq 0 ] && break
 		tries=$[ $tries - 1 ]
+		sleep 1
 	done
 
 	if [ $ret -ne 0 ]; then
