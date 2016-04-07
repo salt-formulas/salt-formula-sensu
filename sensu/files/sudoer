@@ -4,5 +4,5 @@ Defaults:sensu !authenticate
 sensu ALL=(ALL) NOPASSWD: /usr/bin/contrail-status
 sensu ALL=(ALL) NOPASSWD: /etc/sensu/plugins/check_supervisor_proc.py
 sensu ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl status
-sensu ALL=(ALL) NOPASSWD: /usr/sbin/gluster
+sensu ALL=(ALL) NOPASSWD: /usr/sbin/gluster volume status*
 sensu ALL=(ALL) NOPASSWD: /usr/local/sbin/duplicity_salt.sh nagios *
