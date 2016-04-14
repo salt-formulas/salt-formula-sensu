@@ -38,4 +38,6 @@ sensu:
         authentication: cram_md5
         encryption: ssl
         domain: 'domain.cz'
+  client:
+    enabled: false
 
