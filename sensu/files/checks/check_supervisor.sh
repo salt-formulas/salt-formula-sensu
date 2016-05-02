@@ -1,7 +1,7 @@
 #!/bin/bash
 #check supervisorctl status
 
-read -ra STATUS <<< $(supervisorctl status | awk '/'STOPPED'|'STARTING'|'BACKOFF'|'STOPPING'|'EXITED'|'FATAL'|'UNKNOWN'/ {print "Supervisor service " $1 " is " $2  " ;"}')
+read -ra STATUS <<< $(sudo supervisorctl status | awk '/'STOPPED'|'STARTING'|'BACKOFF'|'STOPPING'|'EXITED'|'FATAL'|'UNKNOWN'/ {print "Supervisor service " $1 " is " $2  " ;"}')
 
 exit_critical() {
     echo "CRITICAL: $*"
@@ -53,7 +53,7 @@ if [ ${#STATUS[@]} -ne ${#STOPPING_TEST[@]} ]; then
 	exit_warning ${STATUS[@]}
 fi
 
-read -ra RUNNING_TEST <<< $(supervisorctl status | grep RUNNING)
+read -ra RUNNING_TEST <<< $(sudo supervisorctl status | grep RUNNING)
 if [[ -n ${RUNNING_TEST[@]} ]]; then
     exit_ok "All services RUNNING."
 else
