@@ -47,6 +47,9 @@
       {%- if check.get('timeout', 300) %}
       "timeout": {{ check.get('timeout', 300) }},
       {%- endif %}
+      {%- if check.get('refresh', 86400) %}
+      "refresh": {{ check.get('refresh', 86400) }},
+      {%- endif %}
       {%- if check.low_flap_threshold is defined %}
       "low_flap_threshold": {{ check.low_flap_threshold }},
       "high_flap_threshold": {{ check.high_flap_threshold }},
