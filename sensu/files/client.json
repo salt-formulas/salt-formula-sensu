@@ -44,7 +44,8 @@
     "keepalive": {
       "thresholds": {
         "warning": {{ client.get('keepalive_warning', '120') }},
-        "critical": {{ client.get('keepalive_critical', '180') }}
+        "critical": {{ client.get('keepalive_critical', '180') }},
+        "refresh": 86400
       },
       "handler": "default"
     },
