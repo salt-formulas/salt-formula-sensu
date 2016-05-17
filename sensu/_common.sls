@@ -28,6 +28,14 @@ sensu_repo:
   - mode: 755
   - makedirs: true
 
+/etc/sensu/ssl:
+  file.directory:
+  - user: root
+  - group: sensu
+  - mode: 750
+  - require:
+    - file: /etc/sensu
+
 /srv/sensu:
   file.directory:
   - user: root

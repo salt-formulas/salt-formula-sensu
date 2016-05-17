@@ -1,21 +1,27 @@
-{%- from "sensu/map.jinja" import server with context %}
-{%- from "sensu/map.jinja" import client with context %}
+{%- from "sensu/map.jinja" import server with context -%}
+{%- from "sensu/map.jinja" import client with context -%}
+{%- if pillar.sensu.server is defined -%}
+{%- set amqp = server.message_queue -%}
+{%- else -%}
+{%- set amqp = client.message_queue -%}
+{%- endif -%}
+
 {
-  {%- if pillar.sensu.server is defined %}
   "rabbitmq": {
-    "host": "{{ server.message_queue.host }}",
-    "port": {{ server.message_queue.port }},
-    "user": "{{ server.message_queue.user }}",
-    "password": "{{ server.message_queue.password }}",
-    "vhost": "{{ server.message_queue.virtual_host }}"
+    "host": "{{ amqp.host }}",
+    "port": {{ amqp.port }},
+    "user": "{{ amqp.user }}",
+    "password": "{{ amqp.password }}",
+    {%- if amqp.ssl is defined and amqp.ssl.get('enabled', True) %}
+    "ssl": {
+      "cert_chain_file": "{{ amqp.ssl.cert_file }}",
+      "private_key_file": "{{ amqp.ssl.key_file }}"
+    },
+    {%- endif %}
+    "vhost": "{{ amqp.virtual_host }}"
   }
-  {%- else %}
-  "rabbitmq": {
-    "host": "{{ client.message_queue.host }}",
-    "port": {{ client.message_queue.port }},
-    "user": "{{ client.message_queue.user }}",
-    "password": "{{ client.message_queue.password }}",
-    "vhost": "{{ client.message_queue.virtual_host }}"
-  }
-  {%- endif %}
 }
+
+{#-
+vim: syntax=jinja
+-#}
