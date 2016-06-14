@@ -1,6 +1,11 @@
 #!/bin/bash
 #check nova service-list on ctls
 
+usage() {
+    echo "usage: ./check_nova_services.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0'"
+    exit 1
+}
+
 while getopts ":u:p:t:h:" opt; do
     case $opt in
         u)
@@ -12,13 +17,33 @@ while getopts ":u:p:t:h:" opt; do
         h)
             host=${OPTARG};;
        \?)
-            echo "Invalid option";exit 1;;
+            echo "Invalid option"
+            usage;;
         : ) echo "Option -"$OPTARG" requires an argument." >&2
-            exit 1;;
+            usage;;
     esac
 done
 
-read -ra nova_state_down <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | awk '/'down'/ {print "Service " $2 " on " $3 " is DOWN" ";"}')
+exit_ok() {
+    echo "OK: $*"
+    exit 0
+}
+exit_warning() {
+    echo "WARNING: $*"
+    exit 1
+}
+exit_critical() {
+    echo "CRITICAL: $*"
+    exit 2
+}
+
+read -ra nova_state <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list)
+
+if [[ -z ${nova_state[@]} ]]; then
+        exit_critical "Unknown error"
+fi
+    
+read -ra nova_state_down <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | grep enabled | awk '/'down'/ {print "Service " $2 " on " $3 " is DOWN" ";"}')
 
 EXITVAL=0
 
@@ -45,25 +70,25 @@ if [[ -n ${nova_state_down[@]} ]]; then
     read -ra scheduler_test <<< ${nova_state_down[@]#nova-scheduler}
 
         if [ ${#nova_state_down[@]} -ne ${#scheduler_test[@]} ]; then
-                EXITVAL=2
+                exit_critical ${nova_state_down[@]}
         fi
 
     read -ra conductor_test <<< ${nova_state_down[@]#nova-conductor}
 
         if [ ${#nova_state_down[@]} -ne ${#conductor_test[@]} ]; then
-                EXITVAL=2
+                exit_critical ${nova_state_down[@]}
         fi
 
     read -ra compute_test <<< ${nova_state_down[@]#nova-compute}
 
         if [ ${#nova_state_down[@]} -ne ${#compute_test[@]} ]; then
-                EXITVAL=2
+                exit_critical ${nova_state_down[@]}
         fi
 
 fi
 
-if [ $EXITVAL != 0 ]; then
-        echo ${nova_state_down[@]}
+if [ $EXITVAL = 1 ]; then
+        exit_warning ${nova_state_down[@]}
+else
+        exit_ok "All nova services running."
 fi
-
-exit $EXITVAL
