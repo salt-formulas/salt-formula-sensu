@@ -1,0 +1,8 @@
+name: sensu
+os: Debian, RedHat
+os_family: Debian, RedHat
+version: 201606
+release: 1
+summary: Sensu salt formula
+description: Configure Sensu operating system.
+top_level_dir: sensu
