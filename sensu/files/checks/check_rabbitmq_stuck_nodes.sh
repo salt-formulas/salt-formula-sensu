@@ -10,7 +10,7 @@ exit_ok() {
     exit 0
 }
 
-read -ra rabbit_eval <<< $(sudo rabbitmqctl eval 'rabbit_diagnostics:maybe_stuck().' | grep -o "Found "." suspicious processes.")
+read -ra rabbit_eval <<< $(sudo rabbitmqctl eval 'rabbit_diagnostics:maybe_stuck().' | grep -o "Found "[0-9]*" suspicious processes.")
 if [[ -n ${rabbit_eval[@]} ]]; then
 	if [[ ${rabbit_eval[1]} -eq 0 ]]; then
 		exit_ok ${rabbit_eval[@]}
