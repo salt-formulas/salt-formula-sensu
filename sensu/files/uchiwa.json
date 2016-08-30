@@ -1,7 +1,19 @@
 {%- from "sensu/map.jinja" import dashboard with context -%}
 {
   "sensu": [
+    {%- if dashboard.backend is defined %}
+    {%- for name, sensu in dashboard.backend.iteritems() %}
     {
+      "name": "{{ name }}",
+      "host": "{{ sensu.host }}",
+      "ssl": {{ "true" if sensu.ssl|default(False) else "false" }},
+      "port": {{ sensu.port|default('4567') }},
+      "path": "{{ sensu.path|default('') }}",
+      "timeout": {{ sensu.timeout|default(5000) }}
+    }{% if not loop.last %},{% endif %}
+    {%- endfor %}
+    {%- else %}
+     {
       "name": "Sensu",
       "host": "localhost",
       "ssl": false,
@@ -9,6 +21,7 @@
       "path": "",
       "timeout": 5000
     }
+    {%- endif %}
   ],
   "uchiwa": {
     "host": "{{ dashboard.bind.address }}",
@@ -20,3 +33,7 @@
     "refresh": 5
   }
 }
+
+{#-
+  vim: syntax=jinja
+-#}
