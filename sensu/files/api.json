@@ -2,6 +2,7 @@
 {
   "api": {
     "host": "{{ server.bind.address }}",
+    "bind": "{{ server.bind.address }}",
     "port": {{ server.bind.port }}
   }
 }
