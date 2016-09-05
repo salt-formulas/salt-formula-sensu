@@ -25,6 +25,17 @@ sensu_client_packages:
 {%- for plugin_name, plugin in client.plugin.iteritems() %}
 {%- if plugin.enabled %}
 
+{%- if plugin_name == 'ruby_gems' %}
+{%- for gem_name, gem in client.plugin.ruby_gems.name.iteritems() %}
+
+sensu_client_gem_{{ gem_name }}_install:
+  gem.installed:
+  - gem_bin: /opt/sensu/embedded/bin/gem
+  - name: {{ gem_name }}
+
+{% endfor %}
+{%- endif %}
+
 {%- if plugin_name == 'sensu_community_plugins' %}
 
 sensu_client_community_plugins:
