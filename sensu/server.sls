@@ -86,7 +86,7 @@ sensu_server_pip:
 
 {%- for handler_name, handler in server.get('handler', {}).iteritems() %}
 
-{%- if handler_name in ['default', 'flapjack', 'mail', 'sccd', 'stdout', 'statsd', 'slack', 'pipe']  %}
+{%- if handler_name in ['default', 'flapjack', 'mail', 'sccd', 'stdout', 'statsd', 'slack', 'pipe', 'sfdc']  %}
 
 {%- include "sensu/server/_handler_"+handler_name+".sls" %}
 

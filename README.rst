@@ -104,6 +104,30 @@ Sensu Client with community plugins
           password: pwd
           virtual_host: '/monitor'
 
+Sensu SalesForce handler
+
+.. code-block:: yaml
+
+    sensu:
+      server:
+        enabled: true
+        handler:
+          default:
+            enabled: true
+            set:
+            - sfdc
+          stdout:
+            enabled: true
+          sfdc:
+            enabled: true
+            sfdc_client_id: "3MVG9Oe7T3Ol0ea4MKj"
+            sfdc_client_secret: 11482216293059
+            sfdc_username: test@test1.test
+            sfdc_password: passTemp
+            sfdc_auth_url: https://mysite--scloudqa.cs12.my.salesforce.com
+            environment: a2XV0000001
+            sfdc_organization_id: 00DV00000
+
 Read more
 =========
 

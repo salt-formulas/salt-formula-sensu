@@ -1,0 +1,27 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "sfdc": {
+      "type": "pipe",
+      {%- if handler.mutator is defined %}
+      "mutator": "{{ handler.mutator }}",
+      {%- endif %}
+      "command": "/etc/sensu/handlers/sfdc.py"
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "sfdc": {
+    "sfdc_client_id": "{{ handler.sfdc_client_id }}",
+    "sfdc_client_secret": "{{ handler.sfdc_client_secret }}",
+    "sfdc_username": "{{ handler.sfdc_username }}",
+    "sfdc_password": "{{ handler.sfdc_password }}",
+    "sfdc_auth_url": "{{ handler.sfdc_auth_url }}",
+    "environment": "{{ handler.environment }}",
+    "sfdc_organization_id": "{{ handler.sfdc_organization_id }}"
+  }
+}
+{%- endif %}
