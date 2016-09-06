@@ -92,6 +92,10 @@ Sensu Client with community plugins
             enabled: true
           monitoring_for_openstack:
             enabled: true
+          ruby_gems:
+            enabled: True
+            name:
+              bunny:
         message_queue:
           engine: rabbitmq
           host: rabbitmq
