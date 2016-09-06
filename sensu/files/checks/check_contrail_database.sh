@@ -7,7 +7,7 @@ service=contrail-database
 read -ra contrail_status <<< $(sudo supervisorctl -s unix:///tmp/supervisord_$service.sock status)
 
 check_ok=0
-state=RUNNING
+state=FATAL
 
 read -ra contrail_test <<< ${contrail_status[@]#contrail-$service}
 #compare arrays
@@ -16,6 +16,12 @@ if [ ${#contrail_status[@]} -ne ${#contrail_test[@]} ]; then
 fi
 
 if [ check_ok=1 ]; then
+
+        read -ra contrail_test <<< ${contrail_status[@]#RUNNING}
+
+        if [ ${#contrail_status[@]} -ne ${#contrail_test[@]} ]; then
+                state=RUNNING
+        fi
 
         read -ra contrail_test <<< ${contrail_status[@]#STARTING}
 
@@ -60,6 +66,6 @@ if [ "$CRIT" -gt 0 ]; then
 	EXITVAL=2 #Status 2 = CRITICAL (red)
 fi
 
-echo State of contrail-$service OK:$OK WARN:$WARN CRIT:$CRIT - $LIST
+echo State of contrail-$service $state OK:$OK WARN:$WARN CRIT:$CRIT
 
 exit $EXITVAL
