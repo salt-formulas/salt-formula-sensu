@@ -2,7 +2,7 @@
 #
 # check contrail-database services status on control nodes
 
-service=contrail-database
+service=database
 
 read -ra contrail_status <<< $(sudo supervisorctl -s unix:///tmp/supervisord_$service.sock status)
 
