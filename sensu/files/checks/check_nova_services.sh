@@ -2,11 +2,11 @@
 #check nova service-list on ctls
 
 usage() {
-    echo "usage: ./check_nova_services.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0'"
+    echo "usage: ./check_nova_services.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0' -r RegionName"
     exit 1
 }
 
-while getopts ":u:p:t:h:" opt; do
+while getopts ":u:p:t:h:r:" opt; do
     case $opt in
         u)
             user=${OPTARG};;
@@ -16,6 +16,8 @@ while getopts ":u:p:t:h:" opt; do
             tenant=${OPTARG};;
         h)
             host=${OPTARG};;
+        r)
+            region=${OPTARG};;
        \?)
             echo "Invalid option"
             usage;;
@@ -43,7 +45,7 @@ if [[ -z ${nova_state[@]} ]]; then
         exit_critical "Unknown error"
 fi
     
-read -ra nova_state_down <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | grep enabled | awk '/'down'/ {print "Service " $2 " on " $3 " is DOWN" ";"}')
+read -ra nova_state_down <<< $(nova --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host --os-region-name $region service-list | head -n -1 | tr -d "|" | grep enabled | awk '/'down'/ {print "Service " $2 " on " $3 " is DOWN" ";"}')
 
 EXITVAL=0
 
