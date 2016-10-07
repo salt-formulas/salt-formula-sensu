@@ -2,7 +2,7 @@
 #check nova service-list on ctls
 
 usage() {
-    echo "usage: ./check_nova_services.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0' -r RegionName"
+    echo "usage: ./check_nova_services.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0' -r <region.name>"
     exit 1
 }
 
