@@ -2,7 +2,7 @@ sensu:
   server:
     enabled: true
     keepalive_warning: 20
-    keepalive_critical: 60
+    keepalive_critical: 60        
     mine_checks: true
     database:
       engine: redis
@@ -24,7 +24,6 @@ sensu:
         set:
         - mail
         - pipe
-        - pagerduty
       stdout:
         enabled: true
       pipe:
@@ -39,8 +38,6 @@ sensu:
         authentication: cram_md5
         encryption: ssl
         domain: 'domain.cz'
-      pagerduty:
-        api_key: 'insert-your-key-here'
   client:
     enabled: false
 
