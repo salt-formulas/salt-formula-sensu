@@ -33,8 +33,9 @@ gem_sensu_pagerduty:
 /etc/sensu/handlers/pagerduty.rb:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/pagerduty.rb
-  - mode: 700
-  - user: sensu
+  - mode: 750
+  - user: root
+  - group: sensu
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
