@@ -40,4 +40,4 @@ gem_sensu_pagerduty:
     - service: service_sensu_server
     - service: service_sensu_api
   - require:
-    - gem_sensu_pagerduty
+    - gem: gem_sensu_pagerduty
