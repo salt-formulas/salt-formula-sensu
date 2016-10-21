@@ -28,7 +28,7 @@ fi
 
 exit_critical() {
     echo "CRITICAL: $*"
-    exit 2
+    exit 1
 }
 exit_warning() {
     echo "WARNING: $*"
