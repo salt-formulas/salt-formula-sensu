@@ -4,7 +4,7 @@
 usage() {
         echo "checks nova hypervisor-stats for available disk space."
         echo "Shows available space on hypervisors"
-    echo "usage: ./check_nova_compute_disk_space.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0' -r <region.name> -w <warning.threshold> [default 50] -c <critical.threshold> [default 0]"
+    echo "usage: ./check_nova_compute_disk_space.sh -u <openstack.user> -p <openstack.password> -t <openstack.tenant> -h 'http://<openstack.host>:<openstack.port>/v2.0' -r <region.name> -w <warning.threshold> [default 150] -c <critical.threshold> [default 50]"
     exit 1
 }
 
@@ -37,37 +37,35 @@ while getopts ":u:p:t:h:r:w:c:" opt; do
     esac
 done
 
-WARN=${WARN:-50}
-CRIT=${CRIT:-0}
+WARN=${WARN:-150}
+CRIT=${CRIT:-50}
 
 exit_ok() {
-    echo "OK: Disk available space $*GB"
+    echo "OK: $*"
     exit 0
 }
 exit_warning() {
-    echo "WARNING: Disk available space $*GB"
+    echo "WARNING: $*"
     exit 1
 }
 exit_critical() {
-    echo "CRITICAL: Disk available space $*GB"
+    echo "CRITICAL: $*"
     exit 2
 }
 
-read -ra nova_stats <<< $(nova --os-username $USER --os-password $PASSWD --os-tenant-name $TENANT --os-auth-url $HOST --os-region-name $REGION hypervisor-stats)
+DISK_SPACE=$(nova --os-username $USER --os-password $PASSWD --os-tenant-name $TENANT --os-auth-url $HOST --os-region-name $REGION hypervisor-stats | grep disk_available_least | awk '{print $4}')
 
-if [[ -z ${nova_stats[@]} ]]; then
+if [[ -z $DISK_SPACE ]]; then
         exit_critical "Unknown error"
 fi
 
-SPACE=$(nova --os-username $USER --os-password $PASSWD --os-tenant-name $TENANT --os-auth-url $HOST --os-region-name $REGION hypervisor-stats | grep disk_available_least | awk '{print $4}')
-
-if [[ -n $SPACE ]]; then
-        if [[ $SPACE -le $WARN ]]; then
-                exit_warning $SPACE
-	elif [[ $SPACE -le $CRIT ]]; then
-                exit_critical $SPACE
+if [[ -n $DISK_SPACE ]]; then
+        if [[ $DISK_SPACE -le $WARN ]]; then
+                exit_warning Disk available space $DISK_SPACE GB
+	elif [[ $DISK_SPACE -le $CRIT ]]; then
+                exit_critical Disk available space $DISK_SPACE GB
 	else
-		exit_ok $SPACE
+		exit_ok Disk available space $DISK_SPACE GB
         fi
 else
         exit_critical "Unknown error"
