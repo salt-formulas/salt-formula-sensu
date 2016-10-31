@@ -80,6 +80,24 @@ Sensu Client
           password: pwd
           virtual_host: '/monitor'
 
+Sensu Client with check explicitly disabled
+
+.. code-block:: yaml
+
+    sensu:
+      client:
+        enabled: true
+        message_queue:
+          engine: rabbitmq
+          host: rabbitmq
+          port: 5672
+          user: monitor
+          password: pwd
+          virtual_host: '/monitor'
+        check:
+          local_linux_storage_swap_usage:
+            enabled: False
+
 Sensu Client with community plugins
 
 .. code-block:: yaml

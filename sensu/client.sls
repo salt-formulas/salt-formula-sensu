@@ -76,7 +76,12 @@ sensu_client_checks_grains_dir:
 {%- set grains_fragment_file = service_name+'/meta/sensu.yml' %}
 {%- macro load_grains_file() %}{% include grains_fragment_file %}{% endmacro %}
 {%- set grains_yaml = load_grains_file()|load_yaml %}
-{%- set _dummy = service_grains.sensu.check.update(grains_yaml.check) %}
+{%- for check_name, check in client.get('check', {}).items() %}
+  {%- if check_name in grains_yaml.check and not check.get('enabled', True) %}
+    {%- do grains_yaml.check.pop(check_name) %}
+  {%- endif %}
+{%- endfor %}
+{%- do service_grains.sensu.check.update(grains_yaml.check) %}
 {%- endif %}
 {%- endfor %}
 
