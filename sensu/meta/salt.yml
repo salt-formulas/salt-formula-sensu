@@ -1,0 +1,12 @@
+orchestrate:
+  server:
+    priority: 1000
+  client:
+    priority: 1010
+    require:
+    - salt: sensu.server
+  dashboard:
+    priority: 1020
+    require:
+    - salt: sensu.server
+
