@@ -7,7 +7,7 @@
       {%- if handler.mutator is defined %}
       "mutator": "{{ handler.mutator }}",
       {%- endif %}
-      "command": "/etc/sensu/handlers/handler-pagerduty.rb",
+      "command": "/etc/sensu/handlers/pagerduty.rb",
       "severities": [
         "ok",
         "critical",
