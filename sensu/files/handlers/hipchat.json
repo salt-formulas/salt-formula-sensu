@@ -1,0 +1,25 @@
+{%- set handler = pillar.sensu.server.handler[handler_name] %}
+{%- if handler_setting == "handler" %}
+{
+  "handlers": {
+    "hipchat": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/hipchat.rb"
+    }
+  }
+}
+{%- endif %}
+{%- if handler_setting == "config" %}
+{
+  "hipchat": {
+    "apikey": "{{ handler.apikey }}",
+    "apiversion": "{{ handler.apiversion }}",
+    "room": "{{ handler.room }}",
+    "from": "Sensu",
+    {%- if handler.message_template is defined %}
+    "message_template": "optional message template erb file path - /some/path/to/template.erb",
+    "message_format": "html"
+    {%- endif %}
+  }
+}
+{%- endif %}
