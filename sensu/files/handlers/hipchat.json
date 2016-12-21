@@ -15,8 +15,7 @@
     "apikey": "{{ handler.apikey }}",
     "apiversion": "{{ handler.apiversion }}",
     "room": "{{ handler.room }}",
-    "from": "Sensu",
-    {%- if handler.message_template is defined %}
+    "from": "{{ handler.from }}"{%- if handler.message_template is defined %},
     "message_template": "optional message template erb file path - /some/path/to/template.erb",
     "message_format": "html"
     {%- endif %}
