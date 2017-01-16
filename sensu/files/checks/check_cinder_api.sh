@@ -55,7 +55,7 @@ if [ -z "$TENANT_ID" ]; then
 fi
 
 START=`date +%s`
-QUOTAS=$(curl -s -H "X-Auth-Token: $TOKEN" $HOST:8776/v1/$TENANT_ID/os-quota-sets/$TENANT/defaults | grep "gigabytes")
+QUOTAS=$(cinder --os-username $USER --os-password $PASSWD --os-tenant-name $TENANT --os-auth-url $HOST:5000/v2.0 quota-show $TENANT_ID | grep "gigabytes")
 END=`date +%s`
 
 LIST_TIME=$[END-START]

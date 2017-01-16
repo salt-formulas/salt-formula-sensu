@@ -39,7 +39,7 @@ if [[ -z ${cinder_state[@]} ]]; then
     exit_critical "Unknown error."
 fi
 
-read -ra cinder_state_down <<< $(cinder --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | awk '/'down'/ {print "Service " $1 " on " $2 " is DOWN" ";"}')
+read -ra cinder_state_down <<< $(cinder --os-username $user --os-password $passwd --os-tenant-name $tenant --os-auth-url $host service-list | head -n -1 | tr -d "|" | grep enabled | awk '/'down'/ {print "Service " $1 " on " $2 " is DOWN" ";"}')
 
 EXITVAL=0
 
