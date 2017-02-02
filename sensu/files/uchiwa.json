@@ -4,7 +4,7 @@
     {%- if dashboard.backend is defined %}
     {%- for name, sensu in dashboard.backend.iteritems() %}
     {
-      "name": "{{ name }}",
+      "name": "{{ sensu.name|default(name) }}",
       "host": "{{ sensu.host }}",
       "ssl": {{ "true" if sensu.ssl|default(False) else "false" }},
       "port": {{ sensu.port|default('4567') }},
