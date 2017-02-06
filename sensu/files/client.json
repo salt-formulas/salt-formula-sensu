@@ -3,7 +3,11 @@
 {%- from "sensu/map.jinja" import client with context -%}
 {
   "client": {
+    {%- if client.get('use_shortname', False) %}
+    "name": "{{ system.name }}",
+    {%- else %}
     "name": "{{ system.name }}.{{ system.domain }}",
+    {%- endif %}
     "hostname": "{{ system.name }}",
     "fqdn": "{{ system.name }}.{{ system.domain }}",
     "cluster": "{{ pillar.linux.system.cluster }}",
