@@ -36,6 +36,11 @@
     {%- if pillar.get('keystone', {}).client is defined %}
     {%- if pillar.keystone.client.enabled %}
     {%- from "keystone/map.jinja" import client with context %}
+    {%- if client.server.tenant is defined
+        and client.server.user is defined
+        and client.server.password is defined
+        and client.server.host is defined
+        and client.server.public_port is defined %}
     "openstack": {
       "tenant": "{{ client.server.tenant }}",
       "user": "{{ client.server.user }}",
@@ -43,6 +48,7 @@
       "host": "{{ client.server.host }}",
       "port": "{{ client.server.public_port }}"
     },
+    {%- endif %}
     {%- endif %}
     {%- endif %}
     "keepalive": {
