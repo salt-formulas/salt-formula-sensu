@@ -7,3 +7,4 @@ sensu ALL=(ALL) NOPASSWD: /usr/bin/supervisorctl *status
 sensu ALL=(ALL) NOPASSWD: /usr/sbin/gluster volume status*
 sensu ALL=(ALL) NOPASSWD: /usr/local/sbin/duplicity_salt.sh nagios *
 sensu ALL=(ALL) NOPASSWD: /usr/sbin/rabbitmqctl *rabbit_diagnostics*maybe_stuck()*
+sensu ALL=(ALL) NOPASSWD: /etc/sensu/plugins/check_instance_metadata.sh
