@@ -1,6 +1,9 @@
 {%- from "linux/map.jinja" import system with context -%}
 {%- from "linux/map.jinja" import network with context -%}
 {%- from "sensu/map.jinja" import client with context -%}
+
+{%- set unsubscribed = client.get('unsubscribe', []) -%}
+
 {
   "client": {
     {%- if client.get('use_shortname', False) %}
@@ -60,8 +63,10 @@
       "handler": "default"
     },
     "subscriptions": [
-      {% for key in grains.roles %}
+      {%- for key in grains.roles %}
+      {%- if key not in unsubscribed %}
       "local-{{ key|replace('.', '-') }}",
+      {%- endif %}
       {%- endfor %}
       {%- if pillar.sensu.server is defined %}
       "remote-internet",

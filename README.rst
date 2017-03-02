@@ -98,6 +98,24 @@ Sensu Client with check explicitly disabled
           local_linux_storage_swap_usage:
             enabled: False
 
+Sensu Client with subscriptions explicitly disabled
+
+.. code-block:: yaml
+
+    sensu:
+      client:
+        enabled: true
+        message_queue:
+          engine: rabbitmq
+          host: rabbitmq
+          port: 5672
+          user: monitor
+          password: pwd
+          virtual_host: '/monitor'
+        unsubscribe:
+          - collectd.client
+          - git.client
+
 Sensu Client with community plugins
 
 .. code-block:: yaml
