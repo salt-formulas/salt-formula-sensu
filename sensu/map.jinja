@@ -1,6 +1,6 @@
 {% set server = salt['grains.filter_by']({
     'Debian': {
-        'pkgs': ['sensu', 'python-pip', 'ruby-sensu-plugin', 'ruby-bunny'],
+        'pkgs': ['sensu', 'python-pip', 'ruby-bunny'],
         'mine_checks': True,
     },
     'RedHat': {
