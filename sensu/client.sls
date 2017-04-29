@@ -63,40 +63,6 @@ sensu_monitoring_network_packages:
 {%- endif %}
 {%- endfor %}
 
-sensu_client_checks_grains_dir:
-  file.directory:
-  - name: /etc/salt/grains.d
-  - mode: 700
-  - makedirs: true
-  - user: root
-
-{%- set service_grains = {'sensu': {'check': {}}} %}
-{%- for service_name, service in pillar.items() %}
-{%- if service.get('_support', {}).get('sensu', {}).get('enabled', False) %}
-{%- set grains_fragment_file = service_name+'/meta/sensu.yml' %}
-{%- macro load_grains_file() %}{% include grains_fragment_file %}{% endmacro %}
-{%- set grains_yaml = load_grains_file()|load_yaml %}
-{%- for check_name, check in client.get('check', {}).items() %}
-  {%- if check_name in grains_yaml.check and not check.get('enabled', True) %}
-    {%- do grains_yaml.check.pop(check_name) %}
-  {%- endif %}
-{%- endfor %}
-{%- do service_grains.sensu.check.update(grains_yaml.check) %}
-{%- endif %}
-{%- endfor %}
-
-sensu_client_checks_grains:
-  file.managed:
-  - name: /etc/salt/grains.d/sensu
-  - source: salt://sensu/files/sensu.grain
-  - template: jinja
-  - mode: 600
-  - defaults:
-    service_grains: {{ service_grains|yaml }}
-  - require:
-    - pkg: sensu_client_packages
-    - file: sensu_client_checks_grains_dir
-
 /etc/sensu/conf.d/rabbitmq.json:
   file.managed:
   - source: salt://sensu/files/rabbitmq.json
