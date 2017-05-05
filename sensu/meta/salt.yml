@@ -11,6 +11,7 @@ orchestrate:
     - salt: sensu.server
 grain:
   {%- if pillar.sensu.client is defined %}
+  {%- from "sensu/map.jinja" import client with context %}
   {%- set service_grains = {'sensu': {'check': {}}} %}
   {%- for service_name, service in pillar.items() %}
   {%- if service.get('_support', {}).get('sensu', {}).get('enabled', False) %}
