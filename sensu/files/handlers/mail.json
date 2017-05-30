@@ -25,7 +25,7 @@
     "encryption": "{{ handler.get('encryption') }}",
     {%- endif %}
     "subject": "Sensu Alert",
-    "from": "sensu@{{ handler.get('domain', 'example.org') }}",
+    "from": "{{ handler.get('mail_from', 'sensu@'+handler.get('domain', 'example.org')) }}",
     "to": "{{ handler.mail_to }}",
     "host": "{{ handler.get('host', 'localhost') }}",
     "port": "{{ handler.get('port', '25') }}"
