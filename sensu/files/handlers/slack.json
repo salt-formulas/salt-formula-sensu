@@ -23,6 +23,12 @@
   "slack": {
     "webhook_url": "{{ handler.webhook_url }}",
     "channel": "{{ handler.channel }}",
+    {%- if handler.proxy_address is defined %}
+    "proxy_addr": "{{ handler.proxy_address }}",
+    {%- endif %}
+    {%- if handler.proxy_port is defined %}
+    "proxy_port": "{{ handler.proxy_port }}",
+    {%- endif %}
     "markdown_enabled": false
   }
 }

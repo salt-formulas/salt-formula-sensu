@@ -57,20 +57,30 @@ class Slack < Sensu::Handler
     @event['client']['name'] + '/' + @event['check']['name']
   end
 
+  def incident_host
+    @event['client']['name']
+  end
+
+  def incident_check
+    @event['check']['name']
+  end
+
+  def incident_ip
+    @event['client']['address']
+  end
+
   def get_setting(name)
     settings[config[:json_config]][name]
   end
 
   def handle
     description = @event['check']['notification'] || build_description
-    post_data("*Check*\n#{incident_key}\n\n*Description*\n#{description}")
+    post_data("*Host*: #{incident_host} \n\n*Check*: #{incident_check}\n#{description}")
   end
 
   def build_description
     [
       @event['check']['output'].strip,
-      @event['client']['address'],
-      @event['client']['subscriptions'].join(',')
     ].join(' : ')
   end
 
