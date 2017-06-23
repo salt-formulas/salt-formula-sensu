@@ -87,17 +87,29 @@ while read -r line; do
 		;;
 	Disk)
 		key=${field[@]:0:3}
-		if [ "${key}" = "Disk Space Free" ]; then
-			freeunit=${field[@]:4}
-			free=${freeunit:0:-2}
-			unit=${freeunit#$free}
-			if [ "$unit" != "GB" ]; then
-				Exit UNKNOWN "unknown disk space size $freeunit"
-			fi
-			free=$(echo "${free} / 1" | bc -q)
-			if [ $free -lt $freegb ]; then
-				freegb=$free
-			fi
+                if [ "${key}" = "Disk Space Free" ]; then
+                        freeunit=${field[@]:4}
+                        free=${freeunit:0:-2}
+                        unit=${freeunit#$free}
+                        case $unit in
+                        GB)
+                            true
+                            ;;
+                        TB)
+                            free=$(echo "$free*1024" | bc -q) 
+                            ;;
+                        *)
+                            Exit UNKNOWN "unknown disk space size $freeunit"
+                            ;;
+                        esac
+
+#                       if [ "$unit" != "GB" ]; then
+#                               Exit UNKNOWN "unknown disk space size $freeunit"
+#                       fi
+                        free=$(echo "${free} / 1" | bc -q)
+                        if [ $free -lt $freegb ]; then
+                                freegb=$free
+                        fi
 		fi
 		;;
 	Online)
