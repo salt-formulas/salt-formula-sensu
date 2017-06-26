@@ -102,10 +102,6 @@ while read -r line; do
                             Exit UNKNOWN "unknown disk space size $freeunit"
                             ;;
                         esac
-
-#                       if [ "$unit" != "GB" ]; then
-#                               Exit UNKNOWN "unknown disk space size $freeunit"
-#                       fi
                         free=$(echo "${free} / 1" | bc -q)
                         if [ $free -lt $freegb ]; then
                                 freegb=$free
