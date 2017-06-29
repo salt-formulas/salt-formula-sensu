@@ -1,0 +1,13 @@
+{%- set filter = pillar.sensu.server.filter[filter_name] %}
+{
+  "filters": {
+    "{{ filter_name }}": {
+      "attributes": {
+      {%- if filter.attributes.occurrences is defined %}
+        "occurrences": "{{ filter.attributes.occurrences }}"
+      {%- endif %}
+      },
+      "negate": {{ filter.get("negate", "false") | lower }}
+    }
+  }
+}

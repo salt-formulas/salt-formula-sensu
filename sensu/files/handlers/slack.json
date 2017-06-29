@@ -7,6 +7,9 @@
       {%- if handler.mutator is defined %}
       "mutator": "{{ handler.mutator }}",
       {%- endif %}
+      {%- if handler.filter is defined %}
+      "filter": "{{ handler.filter }}",
+      {%- endif %}
       "command": "/etc/sensu/handlers/slack.rb",
       "severities": [
         "ok",

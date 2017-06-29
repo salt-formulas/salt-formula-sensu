@@ -75,9 +75,25 @@ sensu_server_pip:
     mutator_name: "{{ mutator.name }}"
   - require:
     - file: /etc/sensu/config.json
-    - pkg: sensu_packages
+    - pkg: sensu_server_packages
   - require_in:
     - file: sensu_conf_dir_clean
+  - watch_in:
+    - service: service_sensu_server
+    - service: service_sensu_api
+
+{%- endfor %}
+
+{%- for filter_name, filter in server.get('filter', {}).iteritems() %}
+
+/etc/sensu/conf.d/filter_{{ filter_name }}.json:
+  file.managed:
+  - source: salt://sensu/files/filter.json
+  - template: jinja
+  - defaults:
+    filter_name: "{{ filter_name }}"
+  - require:
+    - pkg: sensu_server_packages
   - watch_in:
     - service: service_sensu_server
     - service: service_sensu_api
