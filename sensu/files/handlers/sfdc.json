@@ -13,6 +13,7 @@
 }
 {%- endif %}
 {%- if handler_setting == "config" %}
+{%- set token_cache_file = handler.get('token_cache_file', False) %}
 {
   "sfdc": {
     "sfdc_client_id": "{{ handler.sfdc_client_id }}",
@@ -22,6 +23,9 @@
     "sfdc_auth_url": "{{ handler.sfdc_auth_url }}",
     "environment": "{{ handler.environment }}",
     "sfdc_organization_id": "{{ handler.sfdc_organization_id }}"
+{%- if token_cache_file %}
+    ,"token_cache_file": "{{ token_cache_file }}"
+{%- endif %}
   }
 }
 {%- endif %}
