@@ -50,18 +50,22 @@ class SfdcHandler(Handler):
         username = self.settings.get('sfdc', {}).get('sfdc_username')
         password = self.settings.get('sfdc', {}).get('sfdc_password')
         auth_url = self.settings.get('sfdc', {}).get('sfdc_auth_url')
+        http_proxy = self.settings.get('sfdc', {}).get('sfdc_http_proxy')
+        https_proxy = self.settings.get('sfdc', {}).get('sfdc_https_proxy')
         organization_id = self.settings.get('sfdc', {}).get('sfdc_organization_id')
         environment = self.settings.get('sfdc', {}).get('environment')
         token_cache_file = self.settings.get('sfdc', {}).get('token_cache_file', None)
 
         print self.event
         print "client_id: ", client_id
-        print "client_secrete: ", client_secret
+        #print "client_secrete: ", client_secret
         print "auth_url: ", auth_url
+        print "http_proxy: ", http_proxy
+        print "https_proxy: ", https_proxy
         print "organization: ", organization_id
         print "username: ", username
         sfdc_oauth2 = OAuth2(client_id, client_secret, username, password,
-                             auth_url, organization_id)
+                             auth_url, http_proxy, https_proxy, organization_id)
 
         data = self.event
         client_host = data.get('client', {}).get('name')
