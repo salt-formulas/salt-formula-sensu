@@ -17,6 +17,11 @@ sensu_server_pip:
   - require:
     - pkg: sensu_server_packages
 
+/etc/sensu/config.json:
+  file.managed:
+  - contents: "{}"
+  - replace: false
+
 {%- if server.mine_checks %}
 
 {%- for node_name, node_grains in salt['mine.get']('*', 'grains.items').iteritems() %}
