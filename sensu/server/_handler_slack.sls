@@ -28,6 +28,7 @@
 /etc/sensu/handlers/slack.rb:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/slack.rb
+  - makedirs: True
   - mode: 700
   - user: sensu
   - watch_in:

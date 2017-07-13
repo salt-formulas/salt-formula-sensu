@@ -28,6 +28,7 @@
 /etc/sensu/handlers/hipchat.rb:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/hipchat.rb
+  - makedirs: True
   - mode: 700
   - user: sensu
   - watch_in:

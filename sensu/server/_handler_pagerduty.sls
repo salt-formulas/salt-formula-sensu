@@ -33,6 +33,7 @@ gem_sensu_pagerduty:
 /etc/sensu/handlers/pagerduty.rb:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/pagerduty.rb
+  - makedirs: True
   - mode: 750
   - user: root
   - group: sensu

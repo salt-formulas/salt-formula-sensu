@@ -28,6 +28,7 @@
 /etc/sensu/handlers/sfdc.py:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/sfdc.py
+  - makedirs: True
   - mode: 755
   - watch_in:
     - service: service_sensu_server
@@ -36,6 +37,7 @@
 /etc/sensu/handlers/salesforce.py:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/salesforce.py
+  - makedirs: True
   - mode: 644
   - watch_in:
     - service: service_sensu_server

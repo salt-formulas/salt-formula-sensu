@@ -34,6 +34,7 @@ python-statsd:
 /etc/sensu/handlers/statsd_handler.py:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/statsd.py
+  - makedirs: True
   - mode: 700
   - user: sensu
   - watch_in:

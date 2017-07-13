@@ -28,6 +28,7 @@
 /etc/sensu/handlers/sccd.py:
   file.managed:
   - source: salt://sensu/files/plugins/handlers/notification/sccd.py
+  - makedirs: True
   - mode: 700
   - user: sensu
   - watch_in:
