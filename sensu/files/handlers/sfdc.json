@@ -21,6 +21,12 @@
     "sfdc_username": "{{ handler.sfdc_username }}",
     "sfdc_password": "{{ handler.sfdc_password }}",
     "sfdc_auth_url": "{{ handler.sfdc_auth_url }}",
+    {%- if handler.sfdc_http_proxy is defined %}
+    "sfdc_http_proxy": "{{ handler.sfdc_http_proxy }}",
+    {%- endif %}
+    {%- if handler.sfdc_https_proxy is defined %}
+    "sfdc_https_proxy": "{{ handler.sfdc_https_proxy }}",
+    {%- endif %}
     "environment": "{{ handler.environment }}",
     "sfdc_organization_id": "{{ handler.sfdc_organization_id }}"
 {%- if token_cache_file %}

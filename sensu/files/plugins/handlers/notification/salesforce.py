@@ -25,7 +25,7 @@ import logging
 LOG = logging.getLogger()
 
 class OAuth2(object):
-    def __init__(self, client_id, client_secret, username, password, auth_url=None, organizationId=None):
+    def __init__(self, client_id, client_secret, username, password, auth_url=None, http_proxy=None, https_proxy=None, organizationId=None):
         if not auth_url:
             auth_url = 'https://login.salesforce.com'
 
@@ -35,6 +35,8 @@ class OAuth2(object):
         self.username = username
         self.password = password
         self.organizationId = organizationId
+        self.http_proxy = http_proxy
+        self.https_proxy = https_proxy
 
     def getUniqueElementValueFromXmlString(self, xmlString, elementName):
         """
@@ -85,9 +87,16 @@ class OAuth2(object):
             'SOAPAction': 'login'
         }
 
+        proxies = {
+          'http': self.http_proxy,
+          'https': self.http_proxy,
+        }
+
         response = requests.post(soap_url,
-                             login_soap_request_body,
-                             headers=login_soap_request_headers)
+                     login_soap_request_body,
+                     headers=login_soap_request_headers,
+                     proxies=proxies)
+
         LOG.debug(response)
         LOG.debug(response.status_code)
         LOG.debug(response.text)
@@ -114,8 +123,13 @@ class OAuth2(object):
             'password': self.password,
         }
 
+        proxies = {
+          'http': self.http_proxy,
+          'https': self.http_proxy,
+        }
+
         url = '{}/services/oauth2/token'.format(self.auth_url)
-        response = requests.post(url, data=data)
+        response = requests.post(url, data=data, proxies=proxies)
         response.raise_for_status()
         return response.json()
 
@@ -136,8 +150,13 @@ class Client(object):
     def __init__(self, oauth2):
         self.oauth2 = oauth2
 
+        self.http_proxy = oauth2.http_proxy
+        self.https_proxy = oauth2.https_proxy
+
         self.access_token = None
         self.instance_url = None
+
+
 
     def ticket(self, id):
         try:
@@ -188,7 +207,6 @@ class Client(object):
 
     def update_case(self, id, data):
         return self.patch('/services/data/v36.0/sobjects/Case/{}'.format(id), data=json.dumps(data), headers={"content-type": "application/json"})
-
 
     def update_comment(self, id, data):
         return self.patch('/services/data/v36.0/sobjects/proxyTicketComment__c/{}'.format(id), data=json.dumps(data), headers={"content-type": "application/json"})
@@ -252,7 +270,13 @@ class Client(object):
         url = self.instance_url + url
         print "URL", url
         print "KWARGS", kwargs
-        response = requests.request(method, url, headers=headers, **kwargs)
+
+        proxies = {
+          'http': self.http_proxy,
+          'https': self.http_proxy,
+        }
+
+        response = requests.request(method, url, headers=headers, proxies=proxies, **kwargs)
         print "RESPONSE", response
 # Debug only
         LOG.debug("Response code: {}".format(response.status_code))
