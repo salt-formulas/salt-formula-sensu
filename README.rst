@@ -163,6 +163,29 @@ Sensu SalesForce handler
             sfdc_auth_url: https://mysite--scloudqa.cs12.my.salesforce.com
             environment: a2XV0000001
             sfdc_organization_id: 00DV00000
+            sfdc_http_proxy: 'http://10.10.10.10:8888'
+            token_cache_file: "/path/to/cache/token"
+
+Sensu Slack handler
+
+.. code-block:: yaml
+
+    sensu:
+      server:
+        enabled: true
+        handler:
+          default:
+            enabled: true
+            set:
+            - slack
+          stdout:
+            enabled: true
+          slack:
+            enabled: True
+            channel: '#channel_name'
+            webhook_url: 'https://hooks.slack.com/services/kastan12T/B57X3SDQA/fasfsaf0632hjkl3dsccLn9v'
+            proxy_address: '10.10.10.10'
+            proxy_port: '8888'
 
 Read more
 =========
