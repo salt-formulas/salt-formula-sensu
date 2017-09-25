@@ -240,8 +240,8 @@ class SfdcHandler(Handler):
                 # Update Case
                 # If ok, mark case as solved.
                 if notification == "RECOVERY":
-                    data['Status'] = 'Solved'
-                    feed_data_body['Status'] = 'Solved'
+                    data['Status'] = 'Auto-solved'
+                    feed_data_body['Status'] = 'Auto-solved'
 
                 u = sfdc_client.update_case(id=ExistingCaseId, data=data)
                 LOG.debug('Upate status code: {} '.format(u.status_code))
@@ -269,9 +269,9 @@ class SfdcHandler(Handler):
             # overwritten on any update
             CaseId = new_case.json()['id']
 
-            # If OK, ensure "Solved" is in the first feed.
+            # If OK, ensure "Auto-solved" is in the first feed.
             if notification == "RECOVERY":
-                feed_data_body['Status'] = 'Solved'
+                feed_data_body['Status'] = 'Auto-solved'
             feeditem_data = {
               'ParentId':   CaseId,
               'Visibility': 'AllUsers',
@@ -289,7 +289,7 @@ class SfdcHandler(Handler):
 
             # If OK, mark case as solved.
             if notification == "RECOVERY":
-                data['Status'] = 'Solved'
+                data['Status'] = 'Auto-solved'
 
             u = sfdc_client.update_case(id=CaseId, data=data)
             LOG.debug('Update status code: {} '.format(u.status_code))
