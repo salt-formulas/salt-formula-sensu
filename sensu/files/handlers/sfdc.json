@@ -7,6 +7,9 @@
       {%- if handler.mutator is defined %}
       "mutator": "{{ handler.mutator }}",
       {%- endif %}
+      {%- if handler.filter is defined %}
+      "filter": "{{ handler.filter }}",
+      {%- endif %}
       "command": "/etc/sensu/handlers/sfdc.py"
     }
   }
@@ -27,11 +30,11 @@
     {%- if handler.sfdc_https_proxy is defined %}
     "sfdc_https_proxy": "{{ handler.sfdc_https_proxy }}",
     {%- endif %}
+{%- if token_cache_file %}
+    "token_cache_file": "{{ token_cache_file }}",
+{%- endif %}
     "environment": "{{ handler.environment }}",
     "sfdc_organization_id": "{{ handler.sfdc_organization_id }}"
-{%- if token_cache_file %}
-    ,"token_cache_file": "{{ token_cache_file }}"
-{%- endif %}
   }
 }
 {%- endif %}

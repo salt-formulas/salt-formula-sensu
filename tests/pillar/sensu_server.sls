@@ -41,6 +41,25 @@ sensu:
         domain: 'domain.cz'
       pagerduty:
         api_key: 'insert-your-key-here'
+      slack:
+        webhook_url: 'http://insert-url'
+        filter: test_filter
+      sfdc:
+        sfdc_client_id: 'client_id'
+        sfdc_client_secret: 'secret'
+        sfdc_username: 'username'
+        sfdc_password: 'password'
+        sfdc_auth_url: 'url'
+        environment: 'env'
+        sfdc_organization_id: 'org'
+        token_cache_file: "/var/run/sensu/token_cache_file"
+        filter: test_filter
+    filter:
+      test_filter:
+        negate: false
+        attributes:
+          occurrences: "eval: value == 3 || value % 20 == 0 || ':::action:::' == 'resolve'"
+
   client:
     enabled: false
 

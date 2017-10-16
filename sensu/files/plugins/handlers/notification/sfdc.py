@@ -31,6 +31,11 @@ LOG = logging.getLogger()
 
 class SfdcHandler(Handler):
 
+    def filter_repeated(self):
+        # Disable the default implementation of this so that we can manage filters
+        # completely via the model/Sensu config.
+        return False
+
     def _format_body(self, data):
         s = ""
         keys = list(data.keys())
