@@ -4,7 +4,13 @@
 
 service=vrouter
 
-read -ra contrail_status <<< $(sudo supervisorctl -s unix:///tmp/supervisord_$service.sock status)
+for p in /tmp /var/run; do
+  if [ -S $p/supervisord_$service.sock ]; then
+    SUPERVISOR_SOCKET_PATH=$p/supervisord_$service.sock
+  fi
+done
+
+read -ra contrail_status <<< $(sudo supervisorctl -s unix://$SUPERVISOR_SOCKET_PATH status)
 
 check_ok=0
 state=RUNNING
