@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-sensu.git
 
 Package: salt-formula-sensu
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: Sensu salt formula
  Configure Sensu operating system.
