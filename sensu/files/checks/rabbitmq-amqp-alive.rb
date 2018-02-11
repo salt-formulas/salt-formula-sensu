@@ -5,7 +5,7 @@
 # ===
 #
 # DESCRIPTION:
-# This plugin checks if RabbitMQ server is alive using the REST API
+# This plugin checks if RabbitMQ server is alive by establishing AMQP connection
 #
 # PLATFORMS:
 #   Linux, BSD, Solaris
